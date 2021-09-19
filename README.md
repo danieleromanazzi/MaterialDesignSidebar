@@ -39,9 +39,9 @@ xmlns:control="clr-namespace:MaterialDesignThemes.Wpf;assembly=ExpandableSidebar
 ```
 - Add control into your Xaml
 ```xml
-                <control:Sidebar DataContext="{Binding ThreeLevelSidebar}" ItemsSource="{Binding Items}"
-                                 ShowItemSeparator="False"
-                                 SelectedItem="{Binding SelectedItem}" />
+<control:Sidebar DataContext="{Binding ThreeLevelSidebar}" ItemsSource="{Binding Items}"
+                 ShowItemSeparator="False"
+                 SelectedItem="{Binding SelectedItem}" />
 ```
 - Create your viewmodel to populate the hierarchical list, you can [see this example](/ExpandableSidebarDemo/TwoLevelSidebarViewModel.cs)
 
