@@ -62,7 +62,7 @@ namespace MaterialDesignThemes.Wpf
 
         public static TreeViewItem ContainerFromItemRecursive(ItemContainerGenerator root, object item)
         {
-            if (item == null)
+            if (item == null || root == null)
             {
                 return null;
             }
