@@ -14,9 +14,9 @@ Sidebar Two Level            |  Sidebar Three Level
 ![Sidebar Two Level](/Documentation/ExampleSidebarTwoLevel.png) | ![Sidebar Three Level](/Documentation/ExampleSidebarThreeLevel.png)
 
 # See It In Action
-![Sidebar Two Level](/Documentation/SidebarTwoLevel.gif)
-
-![Sidebar Three Level](/Documentation/SidebarThreeLevel.gif)
+Sidebar Two Level            |  Sidebar Three Level
+:-------------------------:|:-------------------------:
+![Sidebar Two Level](/Documentation/SidebarTwoLevel.gif) | ![Sidebar Three Level](/Documentation/SidebarThreeLevel.gif)
 
 #  Getting Started
 
