@@ -24,6 +24,13 @@ Sidebar Two Level            |  Sidebar Three Level
 - Download the nuget package [MaterialDesignSidebar](https://www.nuget.org/packages/MaterialDesignSidebar) in your Wpf application
 - Insert into your app.xaml the sidebar style resource
 ```xml
+<ResourceDictionary Source="pack://application:,,,/ExpandableSidebar;component/Themes/SideBarDefaultColor.xaml" />
+<!-- If you would prefer to use your own colors there is an option for that as well
+<ResourceDictionary>
+    <Color x:Key="SideBarToggleColor">Black</Color>
+    <SolidColorBrush x:Key="SideBarToggleBrush" Color="{DynamicResource SideBarToggleColor}"></SolidColorBrush>
+</ResourceDictionary>
+-->
 <ResourceDictionary Source="pack://application:,,,/ExpandableSidebar;component/Themes/SideBar.xaml" />
 ```
 - Declare the namespace into your window or usercontrol
