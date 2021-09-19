@@ -50,6 +50,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\NotSelectableExpandedItemBehavior.cs" />
     <Compile Include="Behaviors\OneClickSidebarExpandBehavior.cs" />
     <Compile Include="Models\FirstLevel.cs" />
     <Compile Include="Models\Item.cs" />
