@@ -7,11 +7,10 @@
         xmlns:control="clr-namespace:MaterialDesignThemes.Wpf;assembly=ExpandableSidebar"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="800" Width="800">
+        Title="Sidebar Demo" Height="800" Width="800">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!--<ResourceDictionary Source="pack://application:,,,/ExpandableSidebar;component/Themes/SideBar.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="Title" TargetType="TextBlock">

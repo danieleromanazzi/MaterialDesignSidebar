@@ -9,42 +9,36 @@ namespace ExpandableSidebarDemo
         {
             Items = new ObservableCollection<ThreeLevelSidebar>
             {
-                new ThreeLevelSidebar("Visita", "3 Registrazioni",
-                    new SecondLevel("Registrazione del 1 giugno 2021", "3 documenti",
+                new ThreeLevelSidebar("Archive One", "3 registrations",
+                    new SecondLevel("Registration 12 june 2021", "3 documents",
                     new Item[3]
                     {
-                        new Item("Documento 1","sottotitolo documento 1", MaterialDesignThemes.Wpf.PackIconKind.Microsoft),
-                        new Item("Documento 2","sottotitolo documento 2", MaterialDesignThemes.Wpf.PackIconKind.Google),
-                        new Item("Documento 3","sottotitolo documento 3", MaterialDesignThemes.Wpf.PackIconKind.AppleIos),
+                        new Item("Document 1","subtitle document 1", PackIconKind.FileDocument),
+                        new Item("Document 2","subtitle document 2", PackIconKind.FileDocument),
+                        new Item("Document 3","subtitle document 3", PackIconKind.FileDocument),
                     }),
-                    new SecondLevel("Registrazione del 12 agosto 2021", "3 documenti",
-                    new Item[3]
+                    new SecondLevel("Registration 16 agust 2021", "2 documents",
+                    new Item[2]
                     {
-                        new Item("Documento 1","sottotitolo documento 1"),
-                        new Item("Documento 2","sottotitolo documento 2"),
-                        new Item("Documento 3","sottotitolo documento 3"),
+                        new Item("Document 1","subtitle document 1"),
+                        new Item("Document 2","subtitle document 2"),
                     }),
-                    new SecondLevel("Registrazione del 14 settembre 2021", "3 documenti",
-                    new Item[3]
+                    new SecondLevel("Registration 14 september 2021", "1 document",
+                    new Item[1]
                     {
-                        new Item("Documento 1","sottotitolo documento 1"),
-                        new Item("Documento 2","sottotitolo documento 2"),
-                        new Item("Documento 3","sottotitolo documento 3"),
+                        new Item("Document 1","subtitle document 1")
                     })),
-                new ThreeLevelSidebar("Analisi", "3 Registrazioni",
-                    new SecondLevel("Registrazione del 1 giugno 2021", "3 documenti",
-                    new Item[3]
+                new ThreeLevelSidebar("Archive two", "3 Registrazioni",
+                    new SecondLevel("Registration 1 june 2021", "1 document",
+                    new Item[1]
                     {
-                        new Item("Documento 1","sottotitolo documento 1"),
-                        new Item("Documento 2","sottotitolo documento 2"),
-                        new Item("Documento 3","sottotitolo documento 3"),
+                        new Item("Document 1","subtitle document 1")
                     }),
-                    new SecondLevel("Registrazione del 12 agosto 2021", "3 documenti",
-                    new Item[3]
+                    new SecondLevel("Registration 12 october 2021", "2 documents",
+                    new Item[2]
                     {
-                        new Item("Documento 1","sottotitolo documento 1"),
-                        new Item("Documento 2","sottotitolo documento 2"),
-                        new Item("Documento 3","sottotitolo documento 3"),
+                        new Item("Document 1","subtitle document 1"),
+                        new Item("Document 2","subtitle document 2")
                     }))
             };
         }
