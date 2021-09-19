@@ -9,10 +9,8 @@
             <converters:BrushRoundConverter x:Key="BrushRoundConverter"/>
             <converters:MathMultipleConverter x:Key="MathMlpMultipleConverter" Operation="Multiply" />
         </ResourceDictionary>
-
-        <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Expander.xaml" />-->
     </ResourceDictionary.MergedDictionaries>
-
+    
     <converters:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter" />
 
     <Style x:Key="MaterialDesignSidebar" TargetType="{x:Type TreeView}">
@@ -135,21 +133,16 @@
                         </VisualStateManager.VisualStateGroups>
                         <Viewbox>
                             <Canvas Width="24" Height="24">
-                                <!--<Path Data="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" 
-                                              x:Name="ExpandPath"
-                                              SnapsToDevicePixels="True"
-                                              Fill="{TemplateBinding Foreground}" 
-                                              Stroke="{TemplateBinding Foreground}" RenderTransformOrigin=".5,.5">-->
                                 <Path Data="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" 
                                               x:Name="ExpandPath"
                                               SnapsToDevicePixels="True"
-                                              Fill="#FF88AECA" 
-                                              Stroke="#FF88AECA" RenderTransformOrigin=".5,.5">
+                                              Fill="{DynamicResource SideBarToggleBrush}" 
+                                              Stroke="{DynamicResource SideBarToggleBrush}" RenderTransformOrigin=".5,.5">
                                     <Path.RenderTransform>
                                         <TransformGroup>
                                             <ScaleTransform/>
                                             <SkewTransform/>
-                                            <RotateTransform Angle="-90" CenterX="4" CenterY="4"/>
+                                            <RotateTransform Angle="-90" CenterX="4" CenterY="2.5"/>
                                             <TranslateTransform/>
                                         </TransformGroup>
                                     </Path.RenderTransform>

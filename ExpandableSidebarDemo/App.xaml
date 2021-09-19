@@ -5,27 +5,35 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-
-            <ResourceDictionary>
-                <ResourceDictionary.MergedDictionaries>
-                    <!-- This is the current way to setup your app's initial theme -->
-                    <materialDesign:BundledTheme BaseTheme="Inherit" PrimaryColor="DeepPurple" SecondaryColor="Lime"
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- This is the current way to setup your app's initial theme -->
+                <materialDesign:BundledTheme BaseTheme="Inherit" PrimaryColor="DeepPurple" SecondaryColor="Lime"
                                              ColorAdjustment="{materialDesign:ColorAdjustment}" />
 
-                    <!-- If you would prefer to use your own colors there is an option for that as well -->
-                    <!--<materialDesign:CustomColorTheme BaseTheme="Light" PrimaryColor="Aqua" SecondaryColor="DarkGreen" />-->
-
-                    <!-- You can also use the built in theme dictionaries as well
+                <!-- If you would prefer to use your own colors there is an option for that as well -->
+                <!--<materialDesign:CustomColorTheme BaseTheme="Light" PrimaryColor="Aqua" SecondaryColor="DarkGreen" />-->
+                
+                <!-- You can also use the built in theme dictionaries as well
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
                 -->
-                
+
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+
+                <!-- Material Sidebar declarations -->
+                <ResourceDictionary Source="pack://application:,,,/ExpandableSidebar;component/Themes/SideBarDefaultColor.xaml" />
+                <!-- If you would prefer to use your own colors there is an option for that as well
+                <ResourceDictionary>
+                    <Color x:Key="SideBarToggleColor">Black</Color>
+                    <SolidColorBrush x:Key="SideBarToggleBrush" Color="{DynamicResource SideBarToggleColor}"></SolidColorBrush>
+                </ResourceDictionary>
+                 -->
                 <ResourceDictionary Source="pack://application:,,,/ExpandableSidebar;component/Themes/SideBar.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            </ResourceDictionary>
+        </ResourceDictionary>
 
     </Application.Resources>
 </Application>
