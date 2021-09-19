@@ -23,13 +23,19 @@ Sidebar Two Level            |  Sidebar Three Level
 # Hot to use
 - Download the nuget package in your Wpf application
 - Insert into your app.xaml the sidebar style resource
+```xml
 <ResourceDictionary Source="pack://application:,,,/ExpandableSidebar;component/Themes/SideBar.xaml" />
+```
 - Declare the namespace into your window or usercontrol
+```xml
 xmlns:control="clr-namespace:MaterialDesignThemes.Wpf;assembly=ExpandableSidebar"
+```
 - Add control into your Xaml
+```xml
                 <control:Sidebar DataContext="{Binding ThreeLevelSidebar}" ItemsSource="{Binding Items}"
                                  ShowItemSeparator="False"
                                  SelectedItem="{Binding SelectedItem}" />
+```
 - Create your viewmodel to populate the hierarchical list, you can [see this example](/ExpandableSidebarDemo/TwoLevelSidebarViewModel.cs)
 
 
