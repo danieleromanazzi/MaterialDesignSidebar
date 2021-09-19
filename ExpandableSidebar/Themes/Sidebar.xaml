@@ -315,7 +315,7 @@
                                       
                                       Foreground="{TemplateBinding Foreground}"
                                       Margin="8 0 8 0"
-Width="24" Height="24"
+                                      Width="24" Height="24"
                                       VerticalAlignment="Center"/>
                                     <!--Width="{TemplateBinding wpf:TreeViewAssist.ExpanderSize}"
                                       Height="{TemplateBinding wpf:TreeViewAssist.ExpanderSize}"-->

@@ -33,7 +33,11 @@ namespace MaterialDesignThemes.Wpf
         private static void TreeView_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var treeViewItem = VisualUpwardSearch<TreeViewItem>(e.OriginalSource as DependencyObject) as TreeViewItem;
-            if (treeViewItem != null) treeViewItem.IsExpanded = !treeViewItem.IsExpanded;
+            if (treeViewItem != null)
+            {
+                treeViewItem.IsExpanded = !treeViewItem.IsExpanded;
+
+            }
         }
 
         static DependencyObject VisualUpwardSearch<T>(DependencyObject source)
