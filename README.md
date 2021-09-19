@@ -21,7 +21,7 @@ Sidebar Two Level            |  Sidebar Three Level
 #  Getting Started
 
 # Hot to use
-- Download the nuget package in your Wpf application
+- Download the nuget package [MaterialDesignSidebar](https://www.nuget.org/packages/MaterialDesignSidebar) in your Wpf application
 - Insert into your app.xaml the sidebar style resource
 ```xml
 <ResourceDictionary Source="pack://application:,,,/ExpandableSidebar;component/Themes/SideBar.xaml" />
