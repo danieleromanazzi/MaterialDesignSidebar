@@ -1,0 +1,119 @@
+﻿<TreeView x:Class="MaterialDesignThemes.Wpf.Sidebar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MaterialDesignThemes.Wpf"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Style="{StaticResource MaterialDesignSidebar}"
+             local:OneClickSidebarExpandBehavior.Enabled="true">
+    <TreeView.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/SideBar.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="{StaticResource MaterialDesignFont}" />
+            </Style>
+            <Style TargetType="TreeView" BasedOn="{StaticResource MaterialDesignSidebar}"/>
+            <Style TargetType="TreeViewItem" BasedOn="{StaticResource MaterialDesignSidebarItem}"/>
+
+            <HierarchicalDataTemplate ItemsSource="{Binding Items}" DataType="{x:Type local:TwoLevelSidebar}">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Title}" FontWeight="Bold" />
+                    </StackPanel>
+                    <TextBlock Text="{Binding Description}"
+                                           Foreground="DarkSlateGray"
+                                           Margin="0,2"
+                                           FontSize="10"/>
+                </StackPanel>
+                <HierarchicalDataTemplate.ItemTemplate>
+                    <DataTemplate DataType="{x:Type local:Item}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <materialDesign:PackIcon Kind="{Binding Icon}" 
+                                                     Margin="0,0,8,0"
+                                                     Visibility="{Binding Icon, Converter={StaticResource NullableToVisibilityConverter}}"/>
+
+                            <TextBlock Text="{Binding Title}" FontWeight="Bold"
+                                           Grid.Column="1"/>
+
+                            <TextBlock Text="{Binding Description}"
+                                           Grid.Row="1" Grid.Column="1"
+                                           Foreground="DarkSlateGray"
+                                           Margin="0,2"
+                                           FontSize="10"/>
+                        </Grid>
+                    </DataTemplate>
+                </HierarchicalDataTemplate.ItemTemplate>
+            </HierarchicalDataTemplate>
+
+
+            <HierarchicalDataTemplate ItemsSource="{Binding SecondLevelItems}" DataType="{x:Type local:ThreeLevelSidebar}">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Title}" FontWeight="Bold" />
+                    </StackPanel>
+                    <TextBlock Text="{Binding Description}"
+                                           Foreground="DarkSlateGray"
+                                           Margin="0,2"
+                                           FontSize="10"/>
+                </StackPanel>
+                <HierarchicalDataTemplate.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Items}" DataType="{x:Type local:SecondLevel}">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Title}" FontWeight="Bold" />
+                            </StackPanel>
+                            <TextBlock Text="{Binding Description}"
+                                           Foreground="DarkSlateGray"
+                                           Margin="0,2"
+                                           FontSize="10"/>
+                        </StackPanel>
+                        <HierarchicalDataTemplate.ItemTemplate>
+                            <DataTemplate DataType="{x:Type local:Item}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+
+                                    <materialDesign:PackIcon Kind="{Binding Icon}" 
+                                                             Margin="0,0,8,0"
+                                                             Visibility="{Binding Icon, Converter={StaticResource NullableToVisibilityConverter}}"/>
+
+                                    <TextBlock Text="{Binding Title}" FontWeight="Bold"
+                                           Grid.Column="1"/>
+
+                                    <TextBlock Text="{Binding Description}"
+                                           Grid.Row="1" Grid.Column="1"
+                                           Foreground="DarkSlateGray"
+                                           Margin="0,2"
+                                           FontSize="10"/>
+                                </Grid>
+                            </DataTemplate>
+                        </HierarchicalDataTemplate.ItemTemplate>
+                    </HierarchicalDataTemplate>
+                </HierarchicalDataTemplate.ItemTemplate>
+            </HierarchicalDataTemplate>
+
+        </ResourceDictionary>
+    </TreeView.Resources>
+
+</TreeView>
