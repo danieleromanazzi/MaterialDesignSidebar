@@ -28,7 +28,7 @@ namespace ExpandableSidebarDemo
                     {
                         new Item("Document 1","subtitle document 1")
                     })),
-                new ThreeLevelSidebar("Archive two", "3 Registrazioni",
+                new ThreeLevelSidebar("Archive two", "2 registrations",
                     new SecondLevel("Registration 1 june 2021", "1 document",
                     new Item[1]
                     {
