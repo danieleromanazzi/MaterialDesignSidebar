@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>MaterialDesignSidebar</id>
+    <version>$version$</version>
+    <title>Material Design Sidebar in XAML for WPF</title>
+    <authors>Daniele Romanazzi</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/danieleromanazzi/MaterialDesignSidebar/</projectUrl>
+    <description>Material Design Sidebar in XAML for WPF</description>
+    <releaseNotes>First edition of control Sidebar</releaseNotes>
+    <copyright>Daniele Romanazzi</copyright>
+    <tags>WPF XAML SIDEBAR MATERIAL DESIGN</tags>
+    <dependencies>
+      <dependency id="MaterialDesignColors" version="2.0.1" />
+      <dependency id="MaterialDesignThemes" version="4.10.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\ExpandableSidebar.dll" target="lib/net461" />
+  </files>
+</package>
