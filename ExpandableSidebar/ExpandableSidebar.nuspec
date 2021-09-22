@@ -14,7 +14,7 @@
     <tags>WPF XAML SIDEBAR MATERIAL DESIGN</tags>
     <dependencies>
       <dependency id="MaterialDesignColors" version="2.0.1" />
-      <dependency id="MaterialDesignThemes" version="4.10.0" />
+      <dependency id="MaterialDesignThemes" version="4.1.0" />
     </dependencies>
   </metadata>
   <files>
