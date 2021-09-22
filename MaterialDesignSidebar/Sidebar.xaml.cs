@@ -12,7 +12,7 @@ namespace MaterialDesignThemes.Wpf
         public Sidebar()
         {
             InitializeComponent();
-            this.SelectedItemChanged += new RoutedPropertyChangedEventHandler<object>(ExpandableSidebar_SelectedItemChanged);
+            this.SelectedItemChanged += new RoutedPropertyChangedEventHandler<object>(Sidebar_SelectedItemChanged);
         }
 
         public bool ShowItemSeparator
@@ -25,7 +25,7 @@ namespace MaterialDesignThemes.Wpf
         public static readonly DependencyProperty ShowItemSeparatorProperty =
             DependencyProperty.Register("ShowItemSeparator", typeof(bool), typeof(Sidebar), new PropertyMetadata(true));
 
-        void ExpandableSidebar_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        void Sidebar_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             this.SelectedItem = e.NewValue;
         }

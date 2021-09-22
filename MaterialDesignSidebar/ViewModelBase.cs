@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace ExpandableSidebarDemo
+namespace MaterialSidebar
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {

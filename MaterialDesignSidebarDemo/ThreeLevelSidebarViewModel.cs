@@ -1,7 +1,8 @@
 ﻿using MaterialDesignThemes.Wpf;
+using MaterialSidebar;
 using System.Collections.ObjectModel;
 
-namespace ExpandableSidebarDemo
+namespace MaterialDesignSidebarDemo
 {
     public class ThreeLevelSidebarViewModel : ViewModelBase
     {

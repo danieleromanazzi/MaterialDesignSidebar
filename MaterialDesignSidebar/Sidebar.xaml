@@ -13,7 +13,7 @@
     <TreeView.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Themes/SideBar.xaml" />
+                <ResourceDictionary Source="Themes/MaterialDesignTheme.Sidebar.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style TargetType="TextBlock">

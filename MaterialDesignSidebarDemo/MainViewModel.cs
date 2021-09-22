@@ -1,4 +1,6 @@
-﻿namespace ExpandableSidebarDemo
+﻿using MaterialSidebar;
+
+namespace MaterialDesignSidebarDemo
 {
     public class MainViewModel : ViewModelBase
     {
