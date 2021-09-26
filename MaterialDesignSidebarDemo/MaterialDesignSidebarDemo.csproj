@@ -58,6 +58,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="MainViewModel.cs" />
+    <Compile Include="Commands\SelectFirstItemCommand.cs" />
+    <Compile Include="Commands\SelectLastItemCommand.cs" />
     <Compile Include="ThreeLevelSidebarViewModel.cs" />
     <Compile Include="TwoLevelSidebarViewModel.cs" />
     <Page Include="MainWindow.xaml">

@@ -43,32 +43,62 @@
                 <TextBlock Text="Two level Sidebar with M-V-VM" Style="{StaticResource Title}"/>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock VerticalAlignment="Center">Open sidebar on selected item</TextBlock>
+                    <ToggleButton x:Name="twolevelOpensidebar" Margin="5" IsChecked="True" />
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <TextBlock VerticalAlignment="Center">Show items separator</TextBlock>
                     <ToggleButton x:Name="twolevelseparator" Margin="5" />
                 </StackPanel>
 
                 <control:Sidebar DataContext="{Binding TwoLevelSidebar}" ItemsSource="{Binding Items}" 
                                  ShowItemSeparator="{Binding IsChecked, ElementName=twolevelseparator}"
-                                 SelectedItem="{Binding SelectedItem}" />
+                                 control:OpenSidebarOnSelectedItem.Enabled="{Binding IsChecked, ElementName=twolevelOpensidebar}"
+                                 SelectedItem="{Binding SelectedItem, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
 
                 <TextBlock Text="{Binding TwoLevelSidebar.SelectedItem, StringFormat={}Selected item: {0}}" Style="{StaticResource Description}"/>
+
+                <Button DataContext="{Binding TwoLevelSidebar}" 
+                        Margin="0,15"
+                        Command="{Binding SelectFirstItemCommand}" 
+                        CommandParameter="{Binding}">Select First Item</Button>
+                <Button DataContext="{Binding TwoLevelSidebar}" 
+                        Margin="0,15"
+                        Command="{Binding SelectLastItemCommand}" 
+                        CommandParameter="{Binding}">Select Last Item</Button>
             </StackPanel>
         </ScrollViewer>
 
         <ScrollViewer Grid.Column="2">
             <StackPanel>
                 <TextBlock Text="Three level Sidebar with M-V-VM" Style="{StaticResource Title}"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock VerticalAlignment="Center">Open sidebar on selected item</TextBlock>
+                    <ToggleButton x:Name="threelevelOpensidebar" Margin="5" IsChecked="True" />
+                </StackPanel>
                 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <TextBlock VerticalAlignment="Center">Show items separator</TextBlock>
                     <ToggleButton x:Name="threelevelseparator" Margin="5" />
                 </StackPanel>
-                
-                <control:Sidebar DataContext="{Binding ThreeLevelSidebar}" ItemsSource="{Binding Items}"
-                                 ShowItemSeparator="{Binding IsChecked, ElementName=threelevelseparator}"
-                                 SelectedItem="{Binding SelectedItem}" />
+
+                <control:ThreeLevelSidebar DataContext="{Binding ThreeLevelSidebar}" ItemsSource="{Binding Items}"
+                                           ShowItemSeparator="{Binding IsChecked, ElementName=threelevelseparator}"
+                                           control:OpenSidebarOnSelectedItem.Enabled="{Binding IsChecked, ElementName=threelevelOpensidebar}"
+                                           SelectedItem="{Binding SelectedItem}" />
 
                 <TextBlock Text="{Binding ThreeLevelSidebar.SelectedItem, StringFormat={}Selected item: {0}}" Style="{StaticResource Description}"/>
+
+                <Button DataContext="{Binding ThreeLevelSidebar}" 
+                        Margin="0,15"
+                        Command="{Binding SelectFirstItemCommand}" 
+                        CommandParameter="{Binding}">Select First Item</Button>
+                <Button DataContext="{Binding ThreeLevelSidebar}" 
+                        Margin="0,15"
+                        Command="{Binding SelectLastItemCommand}" 
+                        CommandParameter="{Binding}">Select Last Item</Button>
             </StackPanel>
         </ScrollViewer>
     </Grid>

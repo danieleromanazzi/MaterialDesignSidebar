@@ -50,12 +50,13 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\OpenSidebarOnSelectedItem.cs" />
     <Compile Include="Behaviors\NotSelectableExpandedItemBehavior.cs" />
     <Compile Include="Behaviors\OneClickSidebarExpandBehavior.cs" />
-    <Compile Include="Models\FirstLevel.cs" />
+    <Compile Include="Common\Helpers.cs" />
+    <Compile Include="Models\GroupItem.cs" />
+    <Compile Include="Models\IItem.cs" />
     <Compile Include="Models\Item.cs" />
-    <Compile Include="Models\ThreeLevelSidebar.cs" />
-    <Compile Include="Models\TwoLevelSidebar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -69,9 +70,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Models\SecondLevel.cs" />
     <Compile Include="Sidebar.xaml.cs">
       <DependentUpon>Sidebar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SidebarItem.xaml.cs">
+      <DependentUpon>SidebarItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ThreeLevelSidebar.xaml.cs">
+      <DependentUpon>ThreeLevelSidebar.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModelBase.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -93,6 +99,14 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="SidebarItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\MaterialDesignTheme.ThreeLevelSidebar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\MaterialDesignTheme.Sidebar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -102,6 +116,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\MaterialDesignColor.Sidebar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ThreeLevelSidebar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -23,15 +23,28 @@ namespace MaterialDesignThemes.Wpf
 
         private static void EnabledPropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
-            if (!(dependencyObject is Sidebar control)) return;
-            control.PreviewMouseDown += Control_PreviewMouseDown;
-            control.MouseUp += TreeView_MouseUp;
-            control.SelectedItemChanged += Control_SelectedItemChanged;
+            if (dependencyObject is Sidebar control)
+            {
+                control.PreviewMouseDown += Control_PreviewMouseDown;
+                control.MouseUp += Sidebar_MouseUp;
+                control.SelectedItemChanged += Control_SelectedItemChanged;
+            }
+
+            if (dependencyObject is ThreeLevelSidebar threeSidebar)
+            {
+                threeSidebar.PreviewMouseDown += Control_PreviewMouseDown;
+                threeSidebar.MouseUp += ThreeSidebar_MouseUp;
+                threeSidebar.SelectedItemChanged += Control_SelectedItemChanged;
+            }
         }
 
         private static void Control_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var treeViewItem = VisualUpwardSearch<TreeViewItem>(e.OriginalSource as DependencyObject) as TreeViewItem;
+            if (treeViewItem == null)
+            {
+                return;
+            }
             if (treeViewItem.HasItems)
             {
                 e.Handled = true;
@@ -46,7 +59,7 @@ namespace MaterialDesignThemes.Wpf
             }
         }
 
-        private static void TreeView_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private static void Sidebar_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var sidebar = sender as Sidebar;
             if (VisualUpwardSearch<TreeViewItem>(e.OriginalSource as DependencyObject) is TreeViewItem treeViewItem)
@@ -55,7 +68,25 @@ namespace MaterialDesignThemes.Wpf
                 {
                     TreeViewItem tvi = ContainerFromItemRecursive(sidebar.ItemContainerGenerator, sidebar.SelectedItem);
                     if (tvi != null)
+                    {
                         tvi.IsSelected = true;
+                    }
+                }
+            }
+        }
+
+        private static void ThreeSidebar_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var sidebar = sender as ThreeLevelSidebar;
+            if (VisualUpwardSearch<TreeViewItem>(e.OriginalSource as DependencyObject) is TreeViewItem treeViewItem)
+            {
+                if (treeViewItem.HasItems && treeViewItem.IsExpanded)
+                {
+                    TreeViewItem tvi = ContainerFromItemRecursive(sidebar.ItemContainerGenerator, sidebar.SelectedItem);
+                    if (tvi != null)
+                    {
+                        tvi.IsSelected = true;
+                    }
                 }
             }
         }

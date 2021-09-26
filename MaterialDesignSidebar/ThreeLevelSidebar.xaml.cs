@@ -1,20 +1,21 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace MaterialDesignThemes.Wpf
 {
+    public delegate void ParentSelectedItemChangedHandler(TreeView sender, object e);
+
     /// <summary>
-    /// Interaction logic for Sidebar.xaml
+    /// Interaction logic for ThreeLevelSidebar.xaml
     /// </summary>
-    public partial class Sidebar : TreeView
+    public partial class ThreeLevelSidebar : TreeView
     {
         public event ParentSelectedItemChangedHandler ParentSelectedItemChangedEvent;
 
-        public Sidebar()
+        public ThreeLevelSidebar() : base()
         {
             InitializeComponent();
-            this.SelectedItemChanged += new RoutedPropertyChangedEventHandler<object>(Sidebar_SelectedItemChanged);
+            SelectedItemChanged += new RoutedPropertyChangedEventHandler<object>(ThreeLevelSidebar_SelectedItemChanged);
         }
 
         public bool ShowItemSeparator
@@ -25,29 +26,29 @@ namespace MaterialDesignThemes.Wpf
 
         // Using a DependencyProperty as the backing store for ShowItemSeparator.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShowItemSeparatorProperty =
-            DependencyProperty.Register("ShowItemSeparator", typeof(bool), typeof(Sidebar), new PropertyMetadata(true));
+            DependencyProperty.Register("ShowItemSeparator", typeof(bool), typeof(ThreeLevelSidebar), new PropertyMetadata(true));
 
-        void Sidebar_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        void ThreeLevelSidebar_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             this.SelectedItem = e.NewValue;
         }
 
         public new object SelectedItem
         {
-            get { return this.GetValue(Sidebar.SelectedItemProperty); }
-            set { this.SetValue(Sidebar.SelectedItemProperty, value); }
+            get { return this.GetValue(SelectedItemProperty); }
+            set { this.SetValue(SelectedItemProperty, value); }
         }
-
-        private object ParentSelectedItem;
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public new static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register("SelectedItem", typeof(object), typeof(Sidebar),
-            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, SelectedItemProperty_Changed));
+            DependencyProperty.Register("SelectedItem", typeof(object), typeof(ThreeLevelSidebar),
+            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, ThreeLevelSelectedItemProperty_Changed));
 
-        static void SelectedItemProperty_Changed(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
+        private object ParentSelectedItem;
+
+        static void ThreeLevelSelectedItemProperty_Changed(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
-            var targetObject = dependencyObject as Sidebar;
+            var targetObject = dependencyObject as ThreeLevelSidebar;
             if (targetObject != null)
             {
                 var previous = targetObject.ParentSelectedItem;
@@ -58,7 +59,8 @@ namespace MaterialDesignThemes.Wpf
                     tvi.IsSelected = true;
                 }
 
-                if (targetObject.ParentSelectedItem != previous)
+                if (targetObject.ParentSelectedItem != previous ||
+                    (targetObject.ParentSelectedItem == null && previous == null))
                 {
                     targetObject.OnSidebarSelectedItemChangedEvent(targetObject, targetObject.SelectedItem);
                 }
@@ -78,12 +80,16 @@ namespace MaterialDesignThemes.Wpf
                 node = this.ItemContainerGenerator.ContainerFromItem(data) as TreeViewItem;
                 if (node != null)
                 {
-                    ParentSelectedItem = node;
                     if (data == item)
+                    {
                         break;
+                    }
+
                     node = FindItemNodeInChildren(node, item);
                     if (node != null)
+                    {
                         break;
+                    }
                 }
             }
             return node;
@@ -101,31 +107,20 @@ namespace MaterialDesignThemes.Wpf
             {
                 node = parent.ItemContainerGenerator.ContainerFromItem(data) as TreeViewItem;
                 if (data == item && node != null)
+                {
                     break;
+                }
+
                 node = FindItemNodeInChildren(node, item);
+
                 if (node != null)
+                {
+                    ParentSelectedItem = data;
                     break;
+                }
             }
 
             return node;
-        }
-
-        private void TreeView_Selected(object sender, RoutedEventArgs e)
-        {
-            var treeViewItem = VisualUpwardSearch<TreeViewItem>(e.OriginalSource as DependencyObject) as TreeViewItem;
-            if (treeViewItem != null)
-            {
-                treeViewItem.IsExpanded = !treeViewItem.IsExpanded;
-                e.Handled = true;
-            }
-        }
-
-        static DependencyObject VisualUpwardSearch<T>(DependencyObject source)
-        {
-            while (source != null && source.GetType() != typeof(T))
-                source = VisualTreeHelper.GetParent(source);
-
-            return source;
         }
     }
 }

@@ -23,11 +23,15 @@ namespace MaterialDesignThemes.Wpf
 
         private static void EnabledPropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
-            var control = dependencyObject as Sidebar;
+            if (dependencyObject is Sidebar sidebar)
+            {
+                sidebar.MouseUp += TreeView_MouseUp;
+            }
 
-            if (control == null) return;
-
-            control.MouseUp += TreeView_MouseUp;
+            if (dependencyObject is ThreeLevelSidebar threelevelSidebar)
+            {
+                threelevelSidebar.MouseUp += TreeView_MouseUp;
+            }
         }
 
         private static void TreeView_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)

@@ -26,11 +26,10 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignSidebar;component/Themes/MaterialDesignColor.Sidebar.xaml" />
                 <!-- If you would prefer to use your own colors there is an option for that as well
                 <ResourceDictionary>
-                    <Color x:Key="SideBarToggleColor">Black</Color>
+                    <Color x:Key="SideBarToggleColor">DarkSlateGray</Color>
                     <SolidColorBrush x:Key="SideBarToggleBrush" Color="{DynamicResource SideBarToggleColor}"></SolidColorBrush>
                 </ResourceDictionary>
                  -->
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignSidebar;component/Themes/MaterialDesignTheme.Sidebar.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>

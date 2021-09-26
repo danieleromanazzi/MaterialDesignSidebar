@@ -13,7 +13,7 @@
     
     <converters:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter" />
 
-    <Style x:Key="MaterialDesignSidebar" TargetType="{x:Type TreeView}">
+    <Style x:Key="MaterialDesignThreeLevelSidebar" TargetType="{x:Type TreeView}">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="{x:Null}"/>
         <Setter Property="BorderThickness" Value="0"/>
@@ -56,7 +56,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="MaterialDesignSidebarItemFocusVisual">
+    <Style x:Key="MaterialDesignThreeLevelSidebarItemFocusVisual">
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
@@ -66,7 +66,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="MaterialDesignExpandCollapseToggleStyle" TargetType="{x:Type ToggleButton}">
+    <Style x:Key="MaterialDesignThreeLevelSidebarExpandCollapseToggleStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Focusable" Value="False"/>
         <Setter Property="Width" Value="16"/>
         <Setter Property="Height" Value="16"/>
@@ -155,13 +155,13 @@
         </Setter>
     </Style>
 
-    <Style x:Key="MaterialDesignSidebarItem" TargetType="{x:Type TreeViewItem}">
+    <Style x:Key="MaterialDesignThreeLevelSidebarItem" TargetType="{x:Type TreeViewItem}">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
         <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
         <Setter Property="Padding" Value="8" />
-        <Setter Property="FocusVisualStyle" Value="{StaticResource MaterialDesignSidebarItemFocusVisual}"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource MaterialDesignThreeLevelSidebarItemFocusVisual}"/>
         <Setter Property="Foreground" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -190,9 +190,9 @@
                                 <VisualState Name="MouseOver">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="MouseOverBorder" Storyboard.TargetProperty="Opacity"
-                                                             To="0.1" Duration="0"/>
+                                                         To="0.1" Duration="0"/>
                                         <DoubleAnimation Storyboard.TargetName="MouseOverBorder" Storyboard.TargetProperty="Opacity"
-                                                             To="0.1" Duration="0"/>
+                                                         To="0.1" Duration="0"/>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState Name="Disabled"/>
@@ -285,25 +285,26 @@
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="40" />
+                                        <ColumnDefinition Width="40" x:Name="ShiftColumn" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
 
                                     <ToggleButton x:Name="Expander" ClickMode="Press" 
                                                   IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" 
-                                                  Style="{StaticResource MaterialDesignExpandCollapseToggleStyle}"
+                                                  Style="{StaticResource MaterialDesignThreeLevelSidebarExpandCollapseToggleStyle}"
                                                   Foreground="{TemplateBinding Foreground}"
                                                   Margin="8 0 8 0"
                                                   Width="24" Height="24"
                                                   VerticalAlignment="Center"/>
-     
+
                                     <ContentPresenter x:Name="PART_Header" ContentSource="Header" Grid.Column="2" />
 
                                 </Grid>
                             </wpf:Ripple>
                         </Grid>
-                        
+
                         <Separator x:Name="ItemSeparator" Grid.Row="1" Grid.ColumnSpan="3" Background="#E3E3E3" Foreground="#E3E3E3" />
-                        
+
                         <ContentControl Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
                                         x:Name="AdditionalContentControl"
                                         Content="{TemplateBinding Header}"
@@ -347,10 +348,16 @@
                         <Trigger Property="HasItems" Value="True">
                             <Setter Property="Background" TargetName="ContentGrid" Value="#FFF2F2F2"/>
                         </Trigger>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext.Level}" Value="Secondary">
+                            <Setter TargetName="Expander" Property="Grid.Column" Value="1" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext.Level}" Value="Primary">
+                            <Setter TargetName="ShiftColumn" Property="Width" Value="0" />
+                        </DataTrigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Opacity" Value=".56"/>
                         </Trigger>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:Sidebar}, Path=ShowItemSeparator}" Value="False">
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ThreeLevelSidebar}, Path=ShowItemSeparator}" Value="False">
                             <Setter TargetName="ItemSeparator" Property="Visibility" Value="Collapsed"/>
                         </DataTrigger>
                     </ControlTemplate.Triggers>
@@ -369,5 +376,4 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
 </ResourceDictionary>
