@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
 namespace MaterialDesignThemes.Wpf
@@ -40,12 +41,13 @@ namespace MaterialDesignThemes.Wpf
 
         private static void Control_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            var toggle = VisualUpwardSearch<ToggleButton>(e.OriginalSource as DependencyObject) as ToggleButton;
             var treeViewItem = VisualUpwardSearch<TreeViewItem>(e.OriginalSource as DependencyObject) as TreeViewItem;
             if (treeViewItem == null)
             {
                 return;
             }
-            if (treeViewItem.HasItems)
+            if (treeViewItem.HasItems && toggle == null)
             {
                 e.Handled = true;
             }
