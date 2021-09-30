@@ -24,7 +24,7 @@
 
                 <!-- Material Sidebar declarations -->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignSidebar;component/Themes/MaterialDesignColor.Sidebar.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignSidebar;component/Themes/MaterialDesignTheme.Sidebar.xaml" />
+                
                 <!-- If you would prefer to use your own colors there is an option for that as well
                 <ResourceDictionary>
                     <Color x:Key="SideBarToggleColor">DarkSlateGray</Color>
@@ -32,6 +32,8 @@
                 </ResourceDictionary>
                  -->
 
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignSidebar;component/Themes/MaterialDesignTheme.Sidebar.xaml" />
+                
             </ResourceDictionary.MergedDictionaries>
 
             <Style TargetType="TextBlock">
