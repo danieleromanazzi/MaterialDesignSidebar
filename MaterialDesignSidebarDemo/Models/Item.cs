@@ -1,25 +1,11 @@
-﻿using MaterialSidebar;
+﻿using MaterialDesignThemes.Wpf;
+using MaterialSidebar;
 using System.Collections.ObjectModel;
 
-namespace MaterialDesignThemes.Wpf
+namespace MaterialDesignSidebarDemo
 {
     public class Item : ViewModelBase, IItem
     {
-        //public Item(string title, string description, GroupLevel level)
-        //{
-        //    Title = title;
-        //    Description = description;
-        //    Level = level;
-        //}
-
-        //public Item(string title, string description, ObservableCollection<IItem> items, GroupLevel level)
-        //{
-        //    Title = title;
-        //    Description = description;
-        //    Items = items;
-        //    Level = level;
-        //}
-
         public Item(string title, string description, PackIconKind icon)
         {
             Title = title;
@@ -42,12 +28,6 @@ namespace MaterialDesignThemes.Wpf
             get { return GetValue<ObservableCollection<IItem>>(); }
             set { SetValue(value); }
         }
-
-        //public GroupLevel Level
-        //{
-        //    get { return GetValue<GroupLevel>(); }
-        //    set { SetValue(value); }
-        //}
 
         public override string ToString()
         {

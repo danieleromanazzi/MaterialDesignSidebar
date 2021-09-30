@@ -9,15 +9,15 @@ namespace MaterialDesignSidebarDemo
     {
         public TwoLevelSidebarViewModel()
         {
-            Items = new ObservableCollection<GroupItem>()
+            Items = new ObservableCollection<Group>()
             {
-                new GroupItem("Big Tech","3 Elements", new ObservableCollection<IItem>()
+                new Group("Big Tech","3 Elements", new ObservableCollection<IItem>()
                 {
                     new Item("Microsoft","Redmond", PackIconKind.Microsoft),
                     new Item("Google","Mountain View", PackIconKind.Google),
                     new Item("Apple","Cupertino", PackIconKind.Apple),
                 }),
-                new GroupItem("Mobile Operative System","2 Elements", new ObservableCollection<IItem>()
+                new Group("Mobile Operative System","2 Elements", new ObservableCollection<IItem>()
                 {
                     new Item("Android","Redmond", PackIconKind.Android),
                     new Item("Ios","Mountain View", PackIconKind.AppleIos),
@@ -30,7 +30,7 @@ namespace MaterialDesignSidebarDemo
         public ICommand SelectFirstItemCommand { get; set; }
         public ICommand SelectLastItemCommand { get; set; }
 
-        public ObservableCollection<GroupItem> Items { get; set; }
+        public ObservableCollection<Group> Items { get; set; }
 
         public object SelectedItem
         {

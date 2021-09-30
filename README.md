@@ -41,23 +41,63 @@ xmlns:control="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignSid
 ## Use Sidebar
 - Add control into your Xaml
 ```xml
-<control:Sidebar DataContext="{Binding ThreeLevelSidebar}" ItemsSource="{Binding Items}"
-                 ShowItemSeparator="False"
-                 control:OpenSidebarOnSelectedItem.Enabled="True"
-                 SelectedItem="{Binding SelectedItem}" />
+<control:Sidebar DataContext="{Binding TwoLevelSidebar}" ItemsSource="{Binding Items}" 
+                 control:SidebarBehavior.ShowSeparator="{Binding IsChecked, ElementName=twolevelseparator}"
+                 control:SidebarBehavior.AutoExpand="{Binding IsChecked, ElementName=twolevelOpensidebar}"
+                 SelectedItem="{Binding SelectedItem, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+    <control:Sidebar.Resources>
+        <ResourceDictionary>
+
+            <Style TargetType="TreeView" BasedOn="{StaticResource MaterialDesignSidebar}"/>
+            <Style TargetType="TreeViewItem" BasedOn="{StaticResource MaterialDesignSidebarItem}"/>
+
+            <HierarchicalDataTemplate ItemsSource="{Binding Items}" DataType="{x:Type local:Group}">
+                <local:SidebarItem /> <!-- This is a your usercontrol (for group)-->
+                <HierarchicalDataTemplate.ItemTemplate>
+                    <DataTemplate DataType="{x:Type local:Item}">
+                        <local:SidebarItem /> <!-- This is a your usercontrol (for item)-->
+                    </DataTemplate>
+                </HierarchicalDataTemplate.ItemTemplate>
+            </HierarchicalDataTemplate>
+
+        </ResourceDictionary>
+    </control:Sidebar.Resources>
+</control:Sidebar>
 ```
 - Create your viewmodel to populate the hierarchical list, you can [see this example](/MaterialDesignSidebarDemo/TwoLevelSidebarViewModel.cs)
 
 ## Use three level Sidebar
 - Add control into your Xaml
 ```xml
-<control:ThreeLevelSidebar DataContext="{Binding ThreeLevelSidebar}" ItemsSource="{Binding Items}"
-                           ShowItemSeparator="False"
-                           control:OpenSidebarOnSelectedItem.Enabled="True"
-                           SelectedItem="{Binding SelectedItem}" />
+<control:Sidebar DataContext="{Binding ThreeLevelSidebar}" ItemsSource="{Binding Items}"
+                 control:SidebarBehavior.AutoExpand="{Binding IsChecked, ElementName=threelevelOpensidebar}"
+                 control:SidebarBehavior.ShowSeparator="{Binding IsChecked, ElementName=threelevelseparator}"
+                 SelectedItem="{Binding SelectedItem}">
+    <control:Sidebar.Resources>
+        <ResourceDictionary>
+
+            <Style TargetType="TreeView" BasedOn="{StaticResource MaterialDesignSidebar}"/>
+            <Style TargetType="TreeViewItem" BasedOn="{StaticResource MaterialDesignSidebarMultiLevelItem}"/>
+
+            <HierarchicalDataTemplate ItemsSource="{Binding Items}" DataType="{x:Type local:Group}">
+                <local:SidebarItem /> <!-- This is a your usercontrol (for group)-->
+                <HierarchicalDataTemplate.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Items}" DataType="{x:Type local:SubGroup}">
+                        <local:SidebarItem /> <!-- This is a your usercontrol (for sub-group)-->
+                        <HierarchicalDataTemplate.ItemTemplate>
+                            <DataTemplate DataType="{x:Type local:Item}">
+                                <local:SidebarItem /> <!-- This is a your usercontrol (for item)-->
+                            </DataTemplate>
+                        </HierarchicalDataTemplate.ItemTemplate>
+                    </HierarchicalDataTemplate>
+                </HierarchicalDataTemplate.ItemTemplate>
+            </HierarchicalDataTemplate>
+
+        </ResourceDictionary>
+    </control:Sidebar.Resources>
+</control:Sidebar>
 ```
 - Create your viewmodel to populate the hierarchical list, you can [see this example](/MaterialDesignSidebarDemo/ThreeLevelSidebarViewModel.cs)
-
 
 
 Special thanks to contributors of project [MaterialDesignInXAML](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit)

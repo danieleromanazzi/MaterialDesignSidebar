@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace MaterialDesignThemes.Wpf
 {
+    public delegate void ParentSelectedItemChangedHandler(TreeView sender, object e);
     /// <summary>
     /// Interaction logic for Sidebar.xaml
     /// </summary>
@@ -17,15 +17,15 @@ namespace MaterialDesignThemes.Wpf
             this.SelectedItemChanged += new RoutedPropertyChangedEventHandler<object>(Sidebar_SelectedItemChanged);
         }
 
-        public bool ShowItemSeparator
-        {
-            get { return (bool)GetValue(ShowItemSeparatorProperty); }
-            set { SetValue(ShowItemSeparatorProperty, value); }
-        }
+        //public bool ShowItemSeparator
+        //{
+        //    get { return (bool)GetValue(ShowItemSeparatorProperty); }
+        //    set { SetValue(ShowItemSeparatorProperty, value); }
+        //}
 
-        // Using a DependencyProperty as the backing store for ShowItemSeparator.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ShowItemSeparatorProperty =
-            DependencyProperty.Register("ShowItemSeparator", typeof(bool), typeof(Sidebar), new PropertyMetadata(true));
+        //// Using a DependencyProperty as the backing store for ShowItemSeparator.  This enables animation, styling, binding, etc...
+        //public static readonly DependencyProperty ShowItemSeparatorProperty =
+        //    DependencyProperty.Register("ShowItemSeparator", typeof(bool), typeof(Sidebar), new PropertyMetadata(true));
 
         void Sidebar_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
@@ -58,7 +58,9 @@ namespace MaterialDesignThemes.Wpf
                     tvi.IsSelected = true;
                 }
 
-                if (targetObject.ParentSelectedItem != previous)
+                //if (targetObject.ParentSelectedItem != previous)
+                if (targetObject.ParentSelectedItem != previous ||
+                    (targetObject.ParentSelectedItem == null && previous == null))
                 {
                     targetObject.OnSidebarSelectedItemChangedEvent(targetObject, targetObject.SelectedItem);
                 }
@@ -80,10 +82,15 @@ namespace MaterialDesignThemes.Wpf
                 {
                     ParentSelectedItem = node;
                     if (data == item)
+                    {
                         break;
+                    }
+
                     node = FindItemNodeInChildren(node, item);
                     if (node != null)
+                    {
                         break;
+                    }
                 }
             }
             return node;
@@ -101,10 +108,16 @@ namespace MaterialDesignThemes.Wpf
             {
                 node = parent.ItemContainerGenerator.ContainerFromItem(data) as TreeViewItem;
                 if (data == item && node != null)
+                {
                     break;
+                }
+
                 node = FindItemNodeInChildren(node, item);
                 if (node != null)
+                {
+                    ParentSelectedItem = data;
                     break;
+                }
             }
 
             return node;
@@ -112,20 +125,12 @@ namespace MaterialDesignThemes.Wpf
 
         private void TreeView_Selected(object sender, RoutedEventArgs e)
         {
-            var treeViewItem = VisualUpwardSearch<TreeViewItem>(e.OriginalSource as DependencyObject) as TreeViewItem;
+            var treeViewItem = VisualHelper.VisualUpwardSearch<TreeViewItem>(e.OriginalSource as DependencyObject) as TreeViewItem;
             if (treeViewItem != null)
             {
                 treeViewItem.IsExpanded = !treeViewItem.IsExpanded;
                 e.Handled = true;
             }
-        }
-
-        static DependencyObject VisualUpwardSearch<T>(DependencyObject source)
-        {
-            while (source != null && source.GetType() != typeof(T))
-                source = VisualTreeHelper.GetParent(source);
-
-            return source;
         }
     }
 }

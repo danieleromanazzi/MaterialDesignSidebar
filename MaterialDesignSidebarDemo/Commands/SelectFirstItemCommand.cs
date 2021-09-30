@@ -1,5 +1,4 @@
-﻿using MaterialDesignThemes.Wpf;
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows.Input;
 
@@ -18,7 +17,7 @@ namespace MaterialDesignSidebarDemo
         {
             if (parameter is ThreeLevelSidebarViewModel vm)
             {
-                var firstItem = ((SubGroupItem)vm.Items[0].Items[0]).Items.First();
+                var firstItem = ((SubGroup)vm.Items[0].Items[0]).Items.First();
                 vm.SelectedItem = firstItem;
             }
             if (parameter is TwoLevelSidebarViewModel vm2)

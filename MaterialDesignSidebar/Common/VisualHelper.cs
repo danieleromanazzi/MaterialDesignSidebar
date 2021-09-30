@@ -4,8 +4,40 @@ using System.Windows.Media;
 
 namespace MaterialDesignThemes.Wpf
 {
-    public static class Helpers
+    public static class VisualHelper
     {
+        public static DependencyObject VisualUpwardSearch<T>(DependencyObject source)
+        {
+            while (source != null && source.GetType() != typeof(T))
+                source = VisualTreeHelper.GetParent(source);
+
+            return source;
+        }
+
+        public static T FindVisualChild<T>(Visual visual) where T : Visual
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(visual); i++)
+            {
+                Visual child = (Visual)VisualTreeHelper.GetChild(visual, i);
+                if (child != null)
+                {
+                    T correctlyTyped = child as T;
+                    if (correctlyTyped != null)
+                    {
+                        return correctlyTyped;
+                    }
+
+                    T descendent = FindVisualChild<T>(child);
+                    if (descendent != null)
+                    {
+                        return descendent;
+                    }
+                }
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// Analyzes both visual and logical tree in order to find all elements of a given
         /// type that are descendants of the <paramref name="source"/> item.

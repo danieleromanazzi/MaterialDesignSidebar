@@ -1,10 +1,11 @@
-﻿namespace MaterialDesignThemes.Wpf
+﻿using MaterialDesignThemes.Wpf;
+
+namespace MaterialDesignSidebarDemo
 {
     public interface IItem
     {
         string Description { get; }
         PackIconKind? Icon { get; set; }
-        //ObservableCollection<IItem> Items { get; set; }
         string Title { get; }
     }
 }
