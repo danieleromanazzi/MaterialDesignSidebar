@@ -64,7 +64,7 @@ xmlns:control="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignSid
     </control:Sidebar.Resources>
 </control:Sidebar>
 ```
-- Create your viewmodel to populate the hierarchical list, you can [see this example](/MaterialDesignSidebarDemo/TwoLevelSidebarViewModel.cs)
+- Create your viewmodel to populate the hierarchical list, you can [see this example](/MaterialDesignSidebarDemo/ViewModels/TwoLevelSidebarViewModel.cs)
 
 ## Use three level Sidebar
 - Add control into your Xaml
@@ -97,7 +97,7 @@ xmlns:control="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignSid
     </control:Sidebar.Resources>
 </control:Sidebar>
 ```
-- Create your viewmodel to populate the hierarchical list, you can [see this example](/MaterialDesignSidebarDemo/ThreeLevelSidebarViewModel.cs)
+- Create your viewmodel to populate the hierarchical list, you can [see this example](/MaterialDesignSidebarDemo/ViewModels/ThreeLevelSidebarViewModel.cs)
 
 
 Special thanks to contributors of project [MaterialDesignInXAML](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit)
