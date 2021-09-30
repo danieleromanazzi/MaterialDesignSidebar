@@ -32,8 +32,6 @@
                 </ResourceDictionary>
                  -->
 
-
-
             </ResourceDictionary.MergedDictionaries>
 
             <Style TargetType="TextBlock">

@@ -25,13 +25,14 @@ Sidebar            |  Three Level Sidebar
 - Insert into your app.xaml the sidebar style resource
 ```xml
 <ResourceDictionary Source="pack://application:,,,/MaterialDesignSidebar;component/Themes/MaterialDesignColor.Sidebar.xaml" />
+<ResourceDictionary Source="pack://application:,,,/MaterialDesignSidebar;component/Themes/MaterialDesignTheme.Sidebar.xaml" />
 <!-- If you would prefer to use your own colors there is an option for that as well
 <ResourceDictionary>
     <Color x:Key="SideBarToggleColor">Black</Color>
     <SolidColorBrush x:Key="SideBarToggleBrush" Color="{DynamicResource SideBarToggleColor}"></SolidColorBrush>
 </ResourceDictionary>
 -->
-<ResourceDictionary Source="pack://application:,,,/MaterialDesignSidebar;component/Themes/MaterialDesignTheme.Sidebar.xaml" />
+
 ```
 - Declare the namespace into your window or usercontrol
 ```xml
