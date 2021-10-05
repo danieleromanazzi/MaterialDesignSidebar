@@ -21,13 +21,13 @@
                                  Margin="0,0,8,0"
                                  Visibility="{Binding Icon, Converter={StaticResource NullableToVisibilityConverter}}"/>
 
-        <TextBlock Text="{Binding Title}" FontWeight="Bold"
-                                           Grid.Column="1"/>
+        <TextBlock Text="{Binding Title}" FontWeight="Bold" Grid.Column="1"/>
 
         <TextBlock Text="{Binding Description}"
-                                           Grid.Row="1" Grid.Column="1"
-                                           Foreground="DarkSlateGray"
-                                           Margin="0,2"
-                                           FontSize="10"/>
+                   Grid.Row="1" Grid.Column="1"
+                   Foreground="DarkSlateGray"
+                   Margin="0,2"
+                   FontSize="10"/>
+        
     </Grid>
 </UserControl>

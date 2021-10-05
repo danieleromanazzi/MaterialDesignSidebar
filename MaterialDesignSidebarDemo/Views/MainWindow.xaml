@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MaterialDesignSidebarDemo"
         xmlns:control="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignSidebar"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Sidebar Demo" Height="800" Width="800">
@@ -48,6 +49,11 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock VerticalAlignment="Center">Expand all node of sidebar</TextBlock>
+                    <ToggleButton x:Name="twolevelExpandAllsidebar" Margin="5" IsChecked="False" />
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <TextBlock VerticalAlignment="Center">Show items separator</TextBlock>
                     <ToggleButton x:Name="twolevelseparator" Margin="5" />
                 </StackPanel>
@@ -55,6 +61,7 @@
                 <control:Sidebar DataContext="{Binding TwoLevelSidebar}" ItemsSource="{Binding Items}" 
                                  control:SidebarBehavior.ShowSeparator="{Binding IsChecked, ElementName=twolevelseparator}"
                                  control:SidebarBehavior.AutoExpandOnSelect="{Binding IsChecked, ElementName=twolevelOpensidebar}"
+                                 control:SidebarBehavior.ExpandAll="{Binding IsChecked, ElementName=twolevelExpandAllsidebar}"
                                  SelectedItem="{Binding SelectedItem, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
                     <control:Sidebar.Resources>
                         <ResourceDictionary>

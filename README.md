@@ -47,6 +47,7 @@ xmlns:control="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignSid
 <control:Sidebar DataContext="{Binding TwoLevelSidebar}" ItemsSource="{Binding Items}" 
                  control:SidebarBehavior.ShowSeparator="{Binding IsChecked, ElementName=twolevelseparator}"
                  control:SidebarBehavior.AutoExpand="{Binding IsChecked, ElementName=twolevelOpensidebar}"
+                 control:SidebarBehavior.ExpandAll="{Binding IsChecked, ElementName=twolevelExpandAllsidebar}"
                  SelectedItem="{Binding SelectedItem, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
     <control:Sidebar.Resources>
         <ResourceDictionary>
@@ -75,6 +76,7 @@ xmlns:control="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignSid
 <control:Sidebar DataContext="{Binding ThreeLevelSidebar}" ItemsSource="{Binding Items}"
                  control:SidebarBehavior.AutoExpand="{Binding IsChecked, ElementName=threelevelOpensidebar}"
                  control:SidebarBehavior.ShowSeparator="{Binding IsChecked, ElementName=threelevelseparator}"
+                 control:SidebarBehavior.ExpandAll="{Binding IsChecked, ElementName=threelevelExpandAllsidebar}"
                  SelectedItem="{Binding SelectedItem}">
     <control:Sidebar.Resources>
         <ResourceDictionary>

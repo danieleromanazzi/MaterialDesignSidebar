@@ -331,48 +331,63 @@ namespace MaterialDesignThemes.Wpf
 
             if (d is Sidebar sidebar)
             {
-                foreach (object item in sidebar.Items)
-                {
-                    if (sidebar.ItemContainerGenerator.ContainerFromItem(item) is TreeViewItem treeItem)
-                    {
-                        ExpandAll(treeItem, status.Value);
-                        treeItem.IsExpanded = status.Value;
-                    }
-                }
+                ExpandTreeView(sidebar, status.Value);
             }
         }
 
-        private static void ExpandAll(ItemsControl items, bool expand)
+        private static void ExpandTreeView(ItemsControl container, bool expand)
         {
-            foreach (object obj in items.Items)
+            if (container != null && container.Items.Count > 0)
             {
-                ItemsControl childControl = items.ItemContainerGenerator.ContainerFromItem(obj) as ItemsControl;
-                if (childControl != null)
+                container.ApplyTemplate();
+                ItemsPresenter itemsPresenter =
+                    (ItemsPresenter)container.Template.FindName("ItemsHost", container);
+                if (itemsPresenter != null)
                 {
-                    ExpandAll(childControl, expand);
+                    itemsPresenter.ApplyTemplate();
                 }
-
-                if (childControl is TreeViewItem item)
+                else
                 {
-                    item.IsExpanded = true;
-                    if (item.HasItems)
+                    itemsPresenter = VisualHelper.FindVisualChild<ItemsPresenter>(container);
+                    if (itemsPresenter == null)
                     {
-                        foreach (var internalObj in item.Items)
-                        {
-                            ItemsControl internalChildControl = item.ItemContainerGenerator.ContainerFromItem(internalObj) as ItemsControl;
-                            if (internalChildControl != null)
-                            {
-                                ExpandAll(internalChildControl, expand);
-                            }
+                        container.UpdateLayout();
 
-                            if (internalChildControl is TreeViewItem internalItem)
-                            {
-                                internalItem.IsExpanded = true;
-                            }
+                        itemsPresenter = VisualHelper.FindVisualChild<ItemsPresenter>(container);
+
+                        if (itemsPresenter == null)
+                        {
+                            return;
                         }
                     }
                 }
 
+                Panel itemsHostPanel = (Panel)VisualTreeHelper.GetChild(itemsPresenter, 0);
+                UIElementCollection children = itemsHostPanel.Children;
+
+
+                for (int i = 0, count = container.Items.Count; i < count; i++)
+                {
+                    TreeViewItem subContainer;
+
+                    subContainer =
+                        (TreeViewItem)container.ItemContainerGenerator.
+                        ContainerFromIndex(i);
+
+                    subContainer.BringIntoView();
+
+
+                    if (subContainer != null)
+                    {
+                        ExpandTreeView(subContainer, expand);
+                        if (subContainer.IsExpanded)
+                        {
+                            // The object is not under this TreeViewItem
+                            // so collapse it.
+                            subContainer.IsExpanded = expand;
+                        }
+                    }
+                }
             }
         }
     }
