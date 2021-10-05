@@ -59,23 +59,23 @@ namespace MaterialDesignThemes.Wpf
             }
         }
 
-        public static bool GetAutoExpand(DependencyObject obj)
+        public static bool GetAutoExpandOnSelect(DependencyObject obj)
         {
-            return (bool)obj.GetValue(AutoExpandProperty);
+            return (bool)obj.GetValue(AutoExpandOnSelectProperty);
         }
 
-        public static void SetAutoExpand(DependencyObject obj, bool value)
+        public static void SetAutoExpandOnSelect(DependencyObject obj, bool value)
         {
-            obj.SetValue(AutoExpandProperty, value);
+            obj.SetValue(AutoExpandOnSelectProperty, value);
         }
 
-        // Using a DependencyProperty as the backing store for AutoExpand.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty AutoExpandProperty =
-            DependencyProperty.RegisterAttached("AutoExpand", typeof(bool), typeof(SidebarBehavior), new UIPropertyMetadata(false, EnabledPropertyChanged));
+        // Using a DependencyProperty as the backing store for AutoExpandOnSelect.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AutoExpandOnSelectProperty =
+            DependencyProperty.RegisterAttached("AutoExpandOnSelect", typeof(bool), typeof(SidebarBehavior), new UIPropertyMetadata(false, EnabledPropertyChanged));
 
         private static void EnabledPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
-            var enabled = GetAutoExpand(dependencyObject);
+            var enabled = GetAutoExpandOnSelect(dependencyObject);
             if (dependencyObject is Sidebar sidebar)
             {
                 if (enabled)
@@ -282,22 +282,6 @@ namespace MaterialDesignThemes.Wpf
             }
         }
 
-        //private static void ThreeSidebar_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        //{
-        //    //var sidebar = sender as ThreeLevelSidebar;
-        //    //if (VisualUpwardSearch<TreeViewItem>(e.OriginalSource as DependencyObject) is TreeViewItem treeViewItem)
-        //    //{
-        //    //    if (treeViewItem.HasItems && treeViewItem.IsExpanded)
-        //    //    {
-        //    //        TreeViewItem tvi = ContainerFromItemRecursive(sidebar.ItemContainerGenerator, sidebar.SelectedItem);
-        //    //        if (tvi != null)
-        //    //        {
-        //    //            tvi.IsSelected = true;
-        //    //        }
-        //    //    }
-        //    //}
-        //}
-
         public static TreeViewItem ContainerFromItemRecursive(ItemContainerGenerator root, object item)
         {
             if (item == null || root == null)
@@ -323,5 +307,73 @@ namespace MaterialDesignThemes.Wpf
         }
 
 
+        public static bool? GetExpandAll(DependencyObject obj)
+        {
+            return (bool?)obj.GetValue(ExpandAllProperty);
+        }
+
+        public static void SetExpandAll(DependencyObject obj, bool? value)
+        {
+            obj.SetValue(ExpandAllProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for ExpandAll.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ExpandAllProperty =
+            DependencyProperty.RegisterAttached("ExpandAll", typeof(bool?), typeof(SidebarBehavior), new PropertyMetadata(null, OnExpandAllChanged));
+
+        private static void OnExpandAllChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var status = GetExpandAll(d);
+            if (!status.HasValue)
+            {
+                return;
+            }
+
+            if (d is Sidebar sidebar)
+            {
+                foreach (object item in sidebar.Items)
+                {
+                    if (sidebar.ItemContainerGenerator.ContainerFromItem(item) is TreeViewItem treeItem)
+                    {
+                        ExpandAll(treeItem, status.Value);
+                        treeItem.IsExpanded = status.Value;
+                    }
+                }
+            }
+        }
+
+        private static void ExpandAll(ItemsControl items, bool expand)
+        {
+            foreach (object obj in items.Items)
+            {
+                ItemsControl childControl = items.ItemContainerGenerator.ContainerFromItem(obj) as ItemsControl;
+                if (childControl != null)
+                {
+                    ExpandAll(childControl, expand);
+                }
+
+                if (childControl is TreeViewItem item)
+                {
+                    item.IsExpanded = true;
+                    if (item.HasItems)
+                    {
+                        foreach (var internalObj in item.Items)
+                        {
+                            ItemsControl internalChildControl = item.ItemContainerGenerator.ContainerFromItem(internalObj) as ItemsControl;
+                            if (internalChildControl != null)
+                            {
+                                ExpandAll(internalChildControl, expand);
+                            }
+
+                            if (internalChildControl is TreeViewItem internalItem)
+                            {
+                                internalItem.IsExpanded = true;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
     }
 }

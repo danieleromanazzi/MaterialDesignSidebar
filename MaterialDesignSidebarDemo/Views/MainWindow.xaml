@@ -54,7 +54,7 @@
 
                 <control:Sidebar DataContext="{Binding TwoLevelSidebar}" ItemsSource="{Binding Items}" 
                                  control:SidebarBehavior.ShowSeparator="{Binding IsChecked, ElementName=twolevelseparator}"
-                                 control:SidebarBehavior.AutoExpand="{Binding IsChecked, ElementName=twolevelOpensidebar}"
+                                 control:SidebarBehavior.AutoExpandOnSelect="{Binding IsChecked, ElementName=twolevelOpensidebar}"
                                  SelectedItem="{Binding SelectedItem, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
                     <control:Sidebar.Resources>
                         <ResourceDictionary>
@@ -98,13 +98,19 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock VerticalAlignment="Center">Expand all node of sidebar</TextBlock>
+                    <ToggleButton x:Name="threelevelExpandAllsidebar" Margin="5" IsChecked="False" />
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <TextBlock VerticalAlignment="Center">Show items separator</TextBlock>
                     <ToggleButton x:Name="threelevelseparator" Margin="5" />
                 </StackPanel>
 
                 <control:Sidebar DataContext="{Binding ThreeLevelSidebar}" ItemsSource="{Binding Items}"
-                                 control:SidebarBehavior.AutoExpand="{Binding IsChecked, ElementName=threelevelOpensidebar}"
+                                 control:SidebarBehavior.AutoExpandOnSelect="{Binding IsChecked, ElementName=threelevelOpensidebar}"
                                  control:SidebarBehavior.ShowSeparator="{Binding IsChecked, ElementName=threelevelseparator}"
+                                 control:SidebarBehavior.ExpandAll="{Binding IsChecked, ElementName=threelevelExpandAllsidebar}"
                                  SelectedItem="{Binding SelectedItem}">
                     <control:Sidebar.Resources>
                         <ResourceDictionary>
