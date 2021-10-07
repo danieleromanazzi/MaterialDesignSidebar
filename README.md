@@ -20,7 +20,7 @@ Sidebar            |  Three Level Sidebar
 
 #  Getting Started
 
-# Hot to use
+# How to use
 - Download the nuget package [MaterialDesignSidebar](https://www.nuget.org/packages/MaterialDesignSidebar) in your Wpf application
 - Insert into your app.xaml the sidebar style resource
 ```xml
