@@ -2,7 +2,6 @@
 This library is developed in C # and contains a Sidebar control with compressed sections for use in WPF technology. This is an extension for Material Design in the XAML project.
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/6962fb7e31caa20648c1/maintainability)](https://codeclimate.com/github/danieleromanazzi/MaterialDesignSidebar/maintainability)
-
 [![Test Coverage](https://api.codeclimate.com/v1/badges/6962fb7e31caa20648c1/test_coverage)](https://codeclimate.com/github/danieleromanazzi/MaterialDesignSidebar/test_coverage)
 
 # Introduction
