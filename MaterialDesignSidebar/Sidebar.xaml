@@ -9,5 +9,10 @@
           d:DesignHeight="450" d:DesignWidth="800"
           local:SidebarBehavior.OneClickExpandEnabled="True"
           local:SidebarBehavior.SelectBranchDisable="True">
- 
+    <TreeView.Resources>
+        <ResourceDictionary>
+            <Style TargetType="TreeView" BasedOn="{StaticResource MaterialDesignSidebar}"/>
+            <Style TargetType="TreeViewItem" BasedOn="{StaticResource MaterialDesignSidebarMultiLevelItem}"/>
+        </ResourceDictionary>
+    </TreeView.Resources>
 </TreeView>

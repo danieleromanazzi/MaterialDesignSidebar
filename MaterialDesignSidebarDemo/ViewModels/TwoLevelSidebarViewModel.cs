@@ -1,6 +1,9 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿using MaterialDesignSidebarDemo.Commands;
+using MaterialDesignSidebarDemo.Data;
 using MaterialSidebar;
+using Newtonsoft.Json;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace MaterialDesignSidebarDemo
@@ -9,28 +12,17 @@ namespace MaterialDesignSidebarDemo
     {
         public TwoLevelSidebarViewModel()
         {
-            Items = new ObservableCollection<Group>()
-            {
-                new Group("Big Tech","3 Elements", new ObservableCollection<IItem>()
-                {
-                    new Item("Microsoft","Redmond", PackIconKind.Microsoft),
-                    new Item("Google","Mountain View", PackIconKind.Google),
-                    new Item("Apple","Cupertino", PackIconKind.Apple),
-                }),
-                new Group("Mobile Operative System","2 Elements", new ObservableCollection<IItem>()
-                {
-                    new Item("Android","Redmond", PackIconKind.Android),
-                    new Item("Ios","Mountain View", PackIconKind.AppleIos),
-                })
-            };
-            SelectFirstItemCommand = new SelectFirstItemCommand();
-            SelectLastItemCommand = new SelectLastItemCommand();
+            var json = ReadData.ReadResource("MaterialDesignSidebarDemo.Data.TwoLevelData.json");
+            Items = JsonConvert.DeserializeObject<ObservableCollection<Item>>(json);
+
+            SelectFirstItemCommand = new DelegateCommand((o) => SelectFirstItem(), (o) => true);
+            SelectLastItemCommand = new DelegateCommand((o) => SelectLastItem(), (o) => true);
         }
 
         public ICommand SelectFirstItemCommand { get; set; }
         public ICommand SelectLastItemCommand { get; set; }
 
-        public ObservableCollection<Group> Items { get; set; }
+        public ObservableCollection<Item> Items { get; set; }
 
         public object SelectedItem
         {
@@ -38,5 +30,16 @@ namespace MaterialDesignSidebarDemo
             set { SetValue(value); }
         }
 
+        private void SelectFirstItem()
+        {
+            var firstItem = Items.First().Items.First();
+            SelectedItem = firstItem;
+        }
+
+        private void SelectLastItem()
+        {
+            var firstItem = Items.Last().Items.Last();
+            SelectedItem = firstItem;
+        }
     }
 }

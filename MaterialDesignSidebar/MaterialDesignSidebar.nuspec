@@ -11,6 +11,8 @@
     <description>Material Design Sidebar in XAML for WPF</description>
     <releaseNotes>First edition of control Sidebar</releaseNotes>
     <copyright>Daniele Romanazzi</copyright>
+    <readme>docs\README.md</readme>
+    <icon>images\sidebar.png</icon>
     <tags>WPF XAML SIDEBAR MATERIAL DESIGN</tags>
     <dependencies>
       <dependency id="MaterialDesignColors" version="2.0.1" />
@@ -19,5 +21,7 @@
   </metadata>
   <files>
     <file src="bin\Release\MaterialDesignSidebar.dll" target="lib/net461" />
+    <file src="..\README.md" target="docs\" />
+    <file src="..\sidebar.png" target="images\" />
   </files>
 </package>

@@ -63,23 +63,16 @@
                                  control:SidebarBehavior.AutoExpandOnSelect="{Binding IsChecked, ElementName=twolevelOpensidebar}"
                                  control:SidebarBehavior.ExpandAll="{Binding IsChecked, ElementName=twolevelExpandAllsidebar}"
                                  SelectedItem="{Binding SelectedItem, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
-                    <control:Sidebar.Resources>
-                        <ResourceDictionary>
-
-                            <Style TargetType="TreeView" BasedOn="{StaticResource MaterialDesignSidebar}"/>
-                            <Style TargetType="TreeViewItem" BasedOn="{StaticResource MaterialDesignSidebarItem}"/>
-
-                            <HierarchicalDataTemplate ItemsSource="{Binding Items}" DataType="{x:Type local:Group}">
-                                <local:SidebarItem />
-                                <HierarchicalDataTemplate.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type local:Item}">
-                                        <local:SidebarItem />
-                                    </DataTemplate>
-                                </HierarchicalDataTemplate.ItemTemplate>
-                            </HierarchicalDataTemplate>
-
-                        </ResourceDictionary>
-                    </control:Sidebar.Resources>
+                    <control:Sidebar.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+                            <local:SidebarItem />
+                            <HierarchicalDataTemplate.ItemTemplate>
+                                <DataTemplate>
+                                    <local:SidebarItem />
+                                </DataTemplate>
+                            </HierarchicalDataTemplate.ItemTemplate>
+                        </HierarchicalDataTemplate>
+                    </control:Sidebar.ItemTemplate>
                 </control:Sidebar>
 
                 <TextBlock Text="{Binding TwoLevelSidebar.SelectedItem, StringFormat={}Selected item: {0}}" Style="{StaticResource Description}"/>
@@ -119,28 +112,21 @@
                                  control:SidebarBehavior.ShowSeparator="{Binding IsChecked, ElementName=threelevelseparator}"
                                  control:SidebarBehavior.ExpandAll="{Binding IsChecked, ElementName=threelevelExpandAllsidebar}"
                                  SelectedItem="{Binding SelectedItem}">
-                    <control:Sidebar.Resources>
-                        <ResourceDictionary>
-
-                            <Style TargetType="TreeView" BasedOn="{StaticResource MaterialDesignSidebar}"/>
-                            <Style TargetType="TreeViewItem" BasedOn="{StaticResource MaterialDesignSidebarMultiLevelItem}"/>
-
-                            <HierarchicalDataTemplate ItemsSource="{Binding Items}" DataType="{x:Type local:Group}">
-                                <local:SidebarItem />
-                                <HierarchicalDataTemplate.ItemTemplate>
-                                    <HierarchicalDataTemplate ItemsSource="{Binding Items}" DataType="{x:Type local:SubGroup}">
-                                        <local:SidebarItem />
-                                        <HierarchicalDataTemplate.ItemTemplate>
-                                            <DataTemplate DataType="{x:Type local:Item}">
-                                                <local:SidebarItem />
-                                            </DataTemplate>
-                                        </HierarchicalDataTemplate.ItemTemplate>
-                                    </HierarchicalDataTemplate>
-                                </HierarchicalDataTemplate.ItemTemplate>
-                            </HierarchicalDataTemplate>
-
-                        </ResourceDictionary>
-                    </control:Sidebar.Resources>
+                    <control:Sidebar.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+                            <local:SidebarItem />
+                            <HierarchicalDataTemplate.ItemTemplate>
+                                <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+                                    <local:SidebarItem />
+                                    <HierarchicalDataTemplate.ItemTemplate>
+                                        <DataTemplate>
+                                            <local:SidebarItem />
+                                        </DataTemplate>
+                                    </HierarchicalDataTemplate.ItemTemplate>
+                                </HierarchicalDataTemplate>
+                            </HierarchicalDataTemplate.ItemTemplate>
+                        </HierarchicalDataTemplate>
+                    </control:Sidebar.ItemTemplate>
                 </control:Sidebar>
 
                 <TextBlock Text="{Binding ThreeLevelSidebar.SelectedItem, StringFormat={}Selected item: {0}}" Style="{StaticResource Description}"/>

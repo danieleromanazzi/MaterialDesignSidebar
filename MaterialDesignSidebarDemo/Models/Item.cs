@@ -6,6 +6,11 @@ namespace MaterialDesignSidebarDemo
 {
     public class Item : ViewModelBase, IItem
     {
+        public Item()
+        {
+
+        }
+
         public Item(string title, string description, PackIconKind icon)
         {
             Title = title;
@@ -13,9 +18,9 @@ namespace MaterialDesignSidebarDemo
             Icon = icon;
         }
 
-        public string Title { get; }
+        public string Title { get; set; }
 
-        public string Description { get; }
+        public string Description { get; set; }
 
         public PackIconKind? Icon
         {
@@ -23,9 +28,9 @@ namespace MaterialDesignSidebarDemo
             set { SetValue(value); }
         }
 
-        public ObservableCollection<IItem> Items
+        public ObservableCollection<Item> Items
         {
-            get { return GetValue<ObservableCollection<IItem>>(); }
+            get { return GetValue<ObservableCollection<Item>>(); }
             set { SetValue(value); }
         }
 
