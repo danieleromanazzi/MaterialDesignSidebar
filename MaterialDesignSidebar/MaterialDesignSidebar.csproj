@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviors\SidebarBehavior.cs" />
-    <Compile Include="Common\VisualHelper.cs" />
+    <Compile Include="VisualHelper.cs" />
     <Compile Include="Converters\TreeLevelConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

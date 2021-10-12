@@ -21,14 +21,5 @@ namespace MaterialDesignSidebarDemo
             get { return GetValue<TwoLevelSidebarViewModel>(); }
             set { SetValue(value); }
         }
-
-
-        public string Filter
-        {
-            get { return GetValue<string>(); }
-            set { SetValue(value); }
-        }
-
-
     }
 }
