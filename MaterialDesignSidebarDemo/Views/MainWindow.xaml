@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MaterialDesignSidebarDemo"
         xmlns:control="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignSidebar"
+        xmlns:vm="clr-namespace:MaterialDesignSidebarDemo.ViewModels"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
@@ -30,7 +31,7 @@
         </ResourceDictionary>
     </Window.Resources>
     <Window.DataContext>
-        <local:MainViewModel />
+        <vm:MainViewModel/>
     </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -38,31 +39,54 @@
             <ColumnDefinition Width="2" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <ScrollViewer>
+        <StackPanel Grid.ColumnSpan="3" HorizontalAlignment="Center" >
+            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+                <TextBlock VerticalAlignment="Center">Open sidebar on selected item</TextBlock>
+                <ToggleButton Margin="5" IsChecked="{Binding AutoExpandOnSelect}" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+                <TextBlock VerticalAlignment="Center">Expand all node of sidebar</TextBlock>
+                <ToggleButton Margin="5" IsChecked="{Binding ExpandAll}" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+                <TextBlock VerticalAlignment="Center">Show items separator</TextBlock>
+                <ToggleButton Margin="5" IsChecked="{Binding ShowSeparator}" />
+            </StackPanel>
+            </StackPanel>
+            <Button Margin="5"
+                    Command="{Binding SelectFirstItemCommand}" 
+                    CommandParameter="{Binding}"> Select First Item
+            </Button>
+            
+            <Button Margin="5"
+                    Command="{Binding SelectLastItemCommand}" 
+                    CommandParameter="{Binding}">Select Last Item</Button>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1">
             <StackPanel>
-                <TextBlock Text="Two level Sidebar with M-V-VM" Style="{StaticResource Title}"/>
+                <TextBlock Text="Simple Sidebar with M-V-VM" Style="{StaticResource Title}"/>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock VerticalAlignment="Center">Open sidebar on selected item</TextBlock>
-                    <ToggleButton x:Name="twolevelOpensidebar" Margin="5" IsChecked="True" />
-                </StackPanel>
+                <TextBlock Text="{Binding SimpleSidebarViewModel.SelectedItem, StringFormat={}Selected item: {0}}" Style="{StaticResource Description}"/>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock VerticalAlignment="Center">Expand all node of sidebar</TextBlock>
-                    <ToggleButton x:Name="twolevelExpandAllsidebar" Margin="5" IsChecked="False" />
-                </StackPanel>
-                
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock VerticalAlignment="Center">Show items separator</TextBlock>
-                    <ToggleButton x:Name="twolevelseparator" Margin="5" />
-                </StackPanel>
-
-                <control:Sidebar DataContext="{Binding TwoLevelSidebar}" ItemsSource="{Binding Items}" 
-                                 control:SidebarBehavior.ShowSeparator="{Binding IsChecked, ElementName=twolevelseparator}"
-                                 control:SidebarBehavior.AutoExpandOnSelect="{Binding IsChecked, ElementName=twolevelOpensidebar}"
-                                 control:SidebarBehavior.ExpandAll="{Binding IsChecked, ElementName=twolevelExpandAllsidebar}"
+                <control:Sidebar DataContext="{Binding SimpleSidebarViewModel}" ItemsSource="{Binding Items}" 
+                                 control:SidebarBehavior.ShowSeparator="{Binding DataContext.ShowSeparator, RelativeSource={RelativeSource AncestorType=Window}}"
+                                 control:SidebarBehavior.AutoExpandOnSelect="{Binding DataContext.AutoExpandOnSelect, RelativeSource={RelativeSource AncestorType=Window}}"
+                                 control:SidebarBehavior.ExpandAll="{Binding DataContext.ExpandAll, RelativeSource={RelativeSource AncestorType=Window}}"
                                  SelectedItem="{Binding SelectedItem, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                    <control:Sidebar.Resources>
+                        <ResourceDictionary>
+                            <Style TargetType="TreeViewItem" BasedOn="{StaticResource MaterialDesignSidebarItem}"/>
+                        </ResourceDictionary>
+                    </control:Sidebar.Resources>
                     <control:Sidebar.ItemTemplate>
                         <HierarchicalDataTemplate ItemsSource="{Binding Items}">
                             <local:SidebarItem />
@@ -75,43 +99,25 @@
                     </control:Sidebar.ItemTemplate>
                 </control:Sidebar>
 
-                <TextBlock Text="{Binding TwoLevelSidebar.SelectedItem, StringFormat={}Selected item: {0}}" Style="{StaticResource Description}"/>
-
-                <Button DataContext="{Binding TwoLevelSidebar}" 
-                        Margin="0,15"
-                        Command="{Binding SelectFirstItemCommand}" 
-                        CommandParameter="{Binding}">Select First Item</Button>
-                <Button DataContext="{Binding TwoLevelSidebar}" 
-                        Margin="0,15"
-                        Command="{Binding SelectLastItemCommand}" 
-                        CommandParameter="{Binding}">Select Last Item</Button>
             </StackPanel>
         </ScrollViewer>
 
-        <ScrollViewer Grid.Column="2">
+        <ScrollViewer Grid.Column="2" Grid.Row="1">
             <StackPanel>
-                <TextBlock Text="Three level Sidebar with M-V-VM" Style="{StaticResource Title}"/>
+                <TextBlock Text="Complex Sidebar with M-V-VM" Style="{StaticResource Title}"/>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock VerticalAlignment="Center">Open sidebar on selected item</TextBlock>
-                    <ToggleButton x:Name="threelevelOpensidebar" Margin="5" IsChecked="True" />
-                </StackPanel>
+                <TextBlock Text="{Binding CompositeSidebarViewModel.SelectedItem, StringFormat={}Selected item: {0}}" Style="{StaticResource Description}"/>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock VerticalAlignment="Center">Expand all node of sidebar</TextBlock>
-                    <ToggleButton x:Name="threelevelExpandAllsidebar" Margin="5" IsChecked="False" />
-                </StackPanel>
-                
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock VerticalAlignment="Center">Show items separator</TextBlock>
-                    <ToggleButton x:Name="threelevelseparator" Margin="5" />
-                </StackPanel>
-
-                <control:Sidebar DataContext="{Binding ThreeLevelSidebar}" ItemsSource="{Binding Items}"
-                                 control:SidebarBehavior.AutoExpandOnSelect="{Binding IsChecked, ElementName=threelevelOpensidebar}"
-                                 control:SidebarBehavior.ShowSeparator="{Binding IsChecked, ElementName=threelevelseparator}"
-                                 control:SidebarBehavior.ExpandAll="{Binding IsChecked, ElementName=threelevelExpandAllsidebar}"
+                <control:Sidebar DataContext="{Binding CompositeSidebarViewModel}" ItemsSource="{Binding Items}"
+                                 control:SidebarBehavior.ShowSeparator="{Binding DataContext.ShowSeparator, RelativeSource={RelativeSource AncestorType=Window}}"
+                                 control:SidebarBehavior.AutoExpandOnSelect="{Binding DataContext.AutoExpandOnSelect, RelativeSource={RelativeSource AncestorType=Window}}"
+                                 control:SidebarBehavior.ExpandAll="{Binding DataContext.ExpandAll, RelativeSource={RelativeSource AncestorType=Window}}"
                                  SelectedItem="{Binding SelectedItem}">
+                    <control:Sidebar.Resources>
+                        <ResourceDictionary>
+                            <Style TargetType="TreeViewItem" BasedOn="{StaticResource MaterialDesignSidebarIndentItem}"/>
+                        </ResourceDictionary>
+                    </control:Sidebar.Resources>
                     <control:Sidebar.ItemTemplate>
                         <HierarchicalDataTemplate ItemsSource="{Binding Items}">
                             <local:SidebarItem />
@@ -128,17 +134,7 @@
                         </HierarchicalDataTemplate>
                     </control:Sidebar.ItemTemplate>
                 </control:Sidebar>
-
-                <TextBlock Text="{Binding ThreeLevelSidebar.SelectedItem, StringFormat={}Selected item: {0}}" Style="{StaticResource Description}"/>
-
-                <Button DataContext="{Binding ThreeLevelSidebar}" 
-                        Margin="0,15"
-                        Command="{Binding SelectFirstItemCommand}" 
-                        CommandParameter="{Binding}">Select First Item</Button>
-                <Button DataContext="{Binding ThreeLevelSidebar}" 
-                        Margin="0,15"
-                        Command="{Binding SelectLastItemCommand}" 
-                        CommandParameter="{Binding}">Select Last Item</Button>
+                
             </StackPanel>
         </ScrollViewer>
     </Grid>

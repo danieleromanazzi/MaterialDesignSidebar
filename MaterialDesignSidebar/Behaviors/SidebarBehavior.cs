@@ -43,11 +43,11 @@ namespace MaterialDesignThemes.Wpf
         {
             if (dependencyObject is Sidebar sidebar)
             {
-                sidebar.MouseUp += TreeView_MouseUp;
+                sidebar.MouseUp += OneClickExpandEnabled_MouseUp;
             }
         }
 
-        private static void TreeView_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private static void OneClickExpandEnabled_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (VisualHelper.VisualUpwardSearch<TreeViewItem>(e.OriginalSource as DependencyObject) is TreeViewItem treeViewItem)
             {
@@ -90,7 +90,6 @@ namespace MaterialDesignThemes.Wpf
             SidebarAssist.AutoExpandOnSelect(sender, e);
         }
 
-
         public static bool GetSelectBranchDisable(DependencyObject obj)
         {
             return (bool)obj.GetValue(SelectBranchDisableProperty);
@@ -109,13 +108,13 @@ namespace MaterialDesignThemes.Wpf
         {
             if (dependencyObject is Sidebar control)
             {
-                control.PreviewMouseDown += Sidebar_PreviewMouseDown;
-                control.MouseUp += Sidebar_MouseUp;
-                control.SelectedItemChanged += Sidebar_SelectedItemChanged;
+                control.PreviewMouseDown += SelectBranchDisable_PreviewMouseDown;
+                control.MouseUp += SelectBranchDisable_MouseUp;
+                control.SelectedItemChanged += SelectBranchDisable_SelectedItemChanged;
             }
         }
 
-        private static void Sidebar_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private static void SelectBranchDisable_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var toggle = VisualHelper.VisualUpwardSearch<ToggleButton>(e.OriginalSource as DependencyObject) as ToggleButton;
             var treeViewItem = VisualHelper.VisualUpwardSearch<TreeViewItem>(e.OriginalSource as DependencyObject) as TreeViewItem;
@@ -131,20 +130,7 @@ namespace MaterialDesignThemes.Wpf
             }
         }
 
-        private static void Sidebar_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            var treeViewItem = VisualHelper.VisualUpwardSearch<TreeViewItem>(e.OriginalSource as DependencyObject) as TreeViewItem;
-            if (treeViewItem == null)
-            {
-                return;
-            }
-            if (treeViewItem.HasItems)
-            {
-                e.Handled = true;
-            }
-        }
-
-        private static void Sidebar_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private static void SelectBranchDisable_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var sidebar = sender as Sidebar;
             if (VisualHelper.VisualUpwardSearch<TreeViewItem>(e.OriginalSource as DependencyObject) is TreeViewItem treeViewItem)
@@ -160,6 +146,20 @@ namespace MaterialDesignThemes.Wpf
             }
         }
 
+        private static void SelectBranchDisable_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            var treeViewItem = VisualHelper.VisualUpwardSearch<TreeViewItem>(e.OriginalSource as DependencyObject) as TreeViewItem;
+
+            if (treeViewItem == null)
+            {
+                return;
+            }
+
+            if (treeViewItem.HasItems)
+            {
+                e.Handled = true;
+            }
+        }
 
         public static bool? GetExpandAll(DependencyObject obj)
         {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace MaterialDesignSidebarDemo.Commands
+namespace MaterialDesignSidebarDemo
 {
     public class DelegateCommand : ICommand
     {

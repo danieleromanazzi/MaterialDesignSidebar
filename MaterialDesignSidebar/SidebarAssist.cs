@@ -3,12 +3,8 @@ using System.Windows.Media;
 
 namespace MaterialDesignThemes.Wpf
 {
-    public class SidebarAssist
+    public static class SidebarAssist
     {
-        protected SidebarAssist()
-        {
-
-        }
 
         public static void AutoExpandOnSelect(TreeView sidebar, object selected)
         {
@@ -65,26 +61,23 @@ namespace MaterialDesignThemes.Wpf
             return result;
         }
 
-        public static TreeViewItem ContainerFromItemRecursive(ItemContainerGenerator root, object item)
+
+        public static TreeViewItem ContainerFromItemRecursive(this ItemContainerGenerator root, object item)
         {
             if (item == null || root == null)
             {
                 return null;
             }
 
-            if (root.ContainerFromItem(item) is TreeViewItem treeViewItem)
-            {
+            var treeViewItem = root.ContainerFromItem(item) as TreeViewItem;
+            if (treeViewItem != null)
                 return treeViewItem;
-            }
-
             foreach (var subItem in root.Items)
             {
                 treeViewItem = root.ContainerFromItem(subItem) as TreeViewItem;
-                var search = ContainerFromItemRecursive(treeViewItem?.ItemContainerGenerator, item);
+                var search = treeViewItem?.ItemContainerGenerator.ContainerFromItemRecursive(item);
                 if (search != null)
-                {
                     return search;
-                }
             }
             return null;
         }
@@ -146,6 +139,57 @@ namespace MaterialDesignThemes.Wpf
                     }
                 }
             }
+        }
+
+        public static TreeViewItem FindItemNode(Sidebar sidebar, object item)
+        {
+            TreeViewItem node = null;
+            foreach (object data in sidebar.Items)
+            {
+                node = sidebar.ItemContainerGenerator.ContainerFromItem(data) as TreeViewItem;
+                if (node != null)
+                {
+                    sidebar.ParentSelectedItem = node;
+                    if (data == item)
+                    {
+                        break;
+                    }
+
+                    node = FindItemNodeInChildren(sidebar, node, item);
+                    if (node != null)
+                    {
+                        break;
+                    }
+                }
+            }
+            return node;
+        }
+
+        public static TreeViewItem FindItemNodeInChildren(Sidebar sidebar, TreeViewItem parent, object item)
+        {
+            TreeViewItem node = null;
+            if (parent == null)
+            {
+                return null;
+            }
+
+            foreach (object data in parent.Items)
+            {
+                node = parent.ItemContainerGenerator.ContainerFromItem(data) as TreeViewItem;
+                if (data == item && node != null)
+                {
+                    break;
+                }
+
+                node = FindItemNodeInChildren(sidebar, node, item);
+                if (node != null)
+                {
+                    sidebar.ParentSelectedItem = data;
+                    break;
+                }
+            }
+
+            return node;
         }
     }
 }

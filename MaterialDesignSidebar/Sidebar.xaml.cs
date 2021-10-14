@@ -4,6 +4,7 @@ using System.Windows.Controls;
 namespace MaterialDesignThemes.Wpf
 {
     public delegate void ParentSelectedItemChangedHandler(TreeView sender, object e);
+
     /// <summary>
     /// Interaction logic for Sidebar.xaml
     /// </summary>
@@ -17,18 +18,15 @@ namespace MaterialDesignThemes.Wpf
             this.SelectedItemChanged += new RoutedPropertyChangedEventHandler<object>(Sidebar_SelectedItemChanged);
         }
 
-        //public bool ShowItemSeparator
-        //{
-        //    get { return (bool)GetValue(ShowItemSeparatorProperty); }
-        //    set { SetValue(ShowItemSeparatorProperty, value); }
-        //}
-
-        //// Using a DependencyProperty as the backing store for ShowItemSeparator.  This enables animation, styling, binding, etc...
-        //public static readonly DependencyProperty ShowItemSeparatorProperty =
-        //    DependencyProperty.Register("ShowItemSeparator", typeof(bool), typeof(Sidebar), new PropertyMetadata(true));
-
         void Sidebar_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+            TreeViewItem tvi = this.ItemContainerGenerator.ContainerFromItemRecursive(e.NewValue);
+            if (tvi.HasItems)
+            {
+                e.Handled = true;
+                return;
+            }
+
             this.SelectedItem = e.NewValue;
         }
 
@@ -38,7 +36,7 @@ namespace MaterialDesignThemes.Wpf
             set { this.SetValue(Sidebar.SelectedItemProperty, value); }
         }
 
-        private object ParentSelectedItem;
+        internal object ParentSelectedItem;
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public new static readonly DependencyProperty SelectedItemProperty =
@@ -52,13 +50,12 @@ namespace MaterialDesignThemes.Wpf
             {
                 var previous = targetObject.ParentSelectedItem;
 
-                var tvi = targetObject.FindItemNode(targetObject.SelectedItem) as TreeViewItem;
-                if (tvi != null)
+                var tvi = SidebarAssist.FindItemNode(targetObject, targetObject.SelectedItem);
+                if (tvi != null && !tvi.HasItems)
                 {
                     tvi.IsSelected = true;
                 }
 
-                //if (targetObject.ParentSelectedItem != previous)
                 if (targetObject.ParentSelectedItem != previous ||
                     (targetObject.ParentSelectedItem == null && previous == null))
                 {
@@ -70,67 +67,6 @@ namespace MaterialDesignThemes.Wpf
         protected void OnSidebarSelectedItemChangedEvent(TreeView sender, object e)
         {
             ParentSelectedItemChangedEvent?.Invoke(sender, e);
-        }
-
-        public TreeViewItem FindItemNode(object item)
-        {
-            TreeViewItem node = null;
-            foreach (object data in this.Items)
-            {
-                node = this.ItemContainerGenerator.ContainerFromItem(data) as TreeViewItem;
-                if (node != null)
-                {
-                    ParentSelectedItem = node;
-                    if (data == item)
-                    {
-                        break;
-                    }
-
-                    node = FindItemNodeInChildren(node, item);
-                    if (node != null)
-                    {
-                        break;
-                    }
-                }
-            }
-            return node;
-        }
-
-        protected TreeViewItem FindItemNodeInChildren(TreeViewItem parent, object item)
-        {
-            TreeViewItem node = null;
-            if (parent == null)
-            {
-                return null;
-            }
-
-            foreach (object data in parent.Items)
-            {
-                node = parent.ItemContainerGenerator.ContainerFromItem(data) as TreeViewItem;
-                if (data == item && node != null)
-                {
-                    break;
-                }
-
-                node = FindItemNodeInChildren(node, item);
-                if (node != null)
-                {
-                    ParentSelectedItem = data;
-                    break;
-                }
-            }
-
-            return node;
-        }
-
-        private void TreeView_Selected(object sender, RoutedEventArgs e)
-        {
-            var treeViewItem = VisualHelper.VisualUpwardSearch<TreeViewItem>(e.OriginalSource as DependencyObject) as TreeViewItem;
-            if (treeViewItem != null)
-            {
-                treeViewItem.IsExpanded = !treeViewItem.IsExpanded;
-                e.Handled = true;
-            }
         }
     }
 }

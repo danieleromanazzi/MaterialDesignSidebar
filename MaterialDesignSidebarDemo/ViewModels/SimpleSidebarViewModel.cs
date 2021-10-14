@@ -1,29 +1,41 @@
-﻿using MaterialDesignSidebarDemo.Commands;
+﻿using AutoMapper;
 using MaterialDesignSidebarDemo.Data;
-using MaterialSidebar;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace MaterialDesignSidebarDemo
+namespace MaterialDesignSidebarDemo.ViewModels
 {
-    public class TwoLevelSidebarViewModel : ViewModelBase
+    public class SimpleSidebarViewModel : ViewModelBase
     {
-        public TwoLevelSidebarViewModel()
+        public SimpleSidebarViewModel()
         {
-            var json = ReadData.ReadResource("MaterialDesignSidebarDemo.Data.TwoLevelData.json");
-            Items = JsonConvert.DeserializeObject<IEnumerable<Item>>(json);
-
             SelectFirstItemCommand = new DelegateCommand((o) => SelectFirstItem(), (o) => true);
             SelectLastItemCommand = new DelegateCommand((o) => SelectLastItem(), (o) => true);
+        }
+
+        public async Task LoadData()
+        {
+            var items = await ReadData.Current.GetSimpleData();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Item, SidebarItemViewModel>();
+            });
+
+            IMapper iMapper = config.CreateMapper();
+            Items = iMapper.Map<IEnumerable<Item>, ObservableCollection<SidebarItemViewModel>>(items);
         }
 
         public ICommand SelectFirstItemCommand { get; set; }
         public ICommand SelectLastItemCommand { get; set; }
 
-        public IEnumerable<Item> Items { get; set; }
+        public IEnumerable<SidebarItemViewModel> Items
+        {
+            get { return GetValue<IEnumerable<SidebarItemViewModel>>(); }
+            set { SetValue(value); }
+        }
 
         public object SelectedItem
         {

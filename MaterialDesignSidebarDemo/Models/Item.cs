@@ -1,38 +1,31 @@
 ﻿using MaterialDesignThemes.Wpf;
-using MaterialSidebar;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace MaterialDesignSidebarDemo
 {
     public class Item : ViewModelBase, IItem
     {
-        public Item()
-        {
-
-        }
-
-        public Item(string title, string description, PackIconKind icon)
+        public Item(string title, string description, PackIconKind? icon)
         {
             Title = title;
             Description = description;
             Icon = icon;
         }
 
+        public Item(string title, string description, IEnumerable<Item> items)
+        {
+            Title = title;
+            Description = description;
+            Items = items;
+        }
+
         public string Title { get; set; }
 
         public string Description { get; set; }
 
-        public PackIconKind? Icon
-        {
-            get { return GetValue<PackIconKind?>(); }
-            set { SetValue(value); }
-        }
+        public PackIconKind? Icon { get; set; }
 
-        public ObservableCollection<Item> Items
-        {
-            get { return GetValue<ObservableCollection<Item>>(); }
-            set { SetValue(value); }
-        }
+        public IEnumerable<Item> Items { get; set; }
 
         public override string ToString()
         {

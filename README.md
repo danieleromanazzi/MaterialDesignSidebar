@@ -47,11 +47,16 @@ xmlns:control="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignSid
 ## Use Sidebar
 - Add control into your Xaml
 ```xml
-<control:Sidebar DataContext="{Binding TwoLevelSidebar}" ItemsSource="{Binding Items}" 
-                 control:SidebarBehavior.ShowSeparator="{Binding IsChecked, ElementName=twolevelseparator}"
-                 control:SidebarBehavior.AutoExpandOnSelect="{Binding IsChecked, ElementName=twolevelOpensidebar}"
-                 control:SidebarBehavior.ExpandAll="{Binding IsChecked, ElementName=twolevelExpandAllsidebar}"
+<control:Sidebar DataContext="{Binding SimpleSidebarViewModel}" ItemsSource="{Binding Items}" 
+                 control:SidebarBehavior.ShowSeparator="{Binding DataContext.ShowSeparator, RelativeSource={RelativeSource AncestorType=Window}}"
+                 control:SidebarBehavior.AutoExpandOnSelect="{Binding DataContext.AutoExpandOnSelect, RelativeSource={RelativeSource AncestorType=Window}}"
+                 control:SidebarBehavior.ExpandAll="{Binding DataContext.ExpandAll, RelativeSource={RelativeSource AncestorType=Window}}"
                  SelectedItem="{Binding SelectedItem, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+    <control:Sidebar.Resources>
+        <ResourceDictionary>
+            <Style TargetType="TreeViewItem" BasedOn="{StaticResource MaterialDesignSidebarItem}"/>
+        </ResourceDictionary>
+    </control:Sidebar.Resources>
     <control:Sidebar.ItemTemplate>
         <HierarchicalDataTemplate ItemsSource="{Binding Items}">
             <local:SidebarItem />
@@ -69,11 +74,16 @@ xmlns:control="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignSid
 ## Use three level Sidebar
 - Add control into your Xaml
 ```xml
-<control:Sidebar DataContext="{Binding ThreeLevelSidebar}" ItemsSource="{Binding Items}"
-                 control:SidebarBehavior.AutoExpandOnSelect="{Binding IsChecked, ElementName=threelevelOpensidebar}"
-                 control:SidebarBehavior.ShowSeparator="{Binding IsChecked, ElementName=threelevelseparator}"
-                 control:SidebarBehavior.ExpandAll="{Binding IsChecked, ElementName=threelevelExpandAllsidebar}"
+<control:Sidebar DataContext="{Binding CompositeSidebarViewModel}" ItemsSource="{Binding Items}"
+                 control:SidebarBehavior.ShowSeparator="{Binding DataContext.ShowSeparator, RelativeSource={RelativeSource AncestorType=Window}}"
+                 control:SidebarBehavior.AutoExpandOnSelect="{Binding DataContext.AutoExpandOnSelect, RelativeSource={RelativeSource AncestorType=Window}}"
+                 control:SidebarBehavior.ExpandAll="{Binding DataContext.ExpandAll, RelativeSource={RelativeSource AncestorType=Window}}"
                  SelectedItem="{Binding SelectedItem}">
+    <control:Sidebar.Resources>
+        <ResourceDictionary>
+            <Style TargetType="TreeViewItem" BasedOn="{StaticResource MaterialDesignSidebarIndentItem}"/>
+        </ResourceDictionary>
+    </control:Sidebar.Resources>
     <control:Sidebar.ItemTemplate>
         <HierarchicalDataTemplate ItemsSource="{Binding Items}">
             <local:SidebarItem />

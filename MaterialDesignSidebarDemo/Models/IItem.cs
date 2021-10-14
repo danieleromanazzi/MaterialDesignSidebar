@@ -4,8 +4,8 @@ namespace MaterialDesignSidebarDemo
 {
     public interface IItem
     {
-        string Description { get; }
+        string Title { get; set; }
+        string Description { get; set; }
         PackIconKind? Icon { get; set; }
-        string Title { get; }
     }
 }
