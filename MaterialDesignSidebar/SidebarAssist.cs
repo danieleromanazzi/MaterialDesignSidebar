@@ -10,8 +10,11 @@ namespace MaterialDesignThemes.Wpf
         {
             var visualItem = FindSelectedItem(sidebar, selected);
 
-            visualItem.IsSelected = true;
-            visualItem.UpdateLayout();
+            if (visualItem != null)
+            {
+                visualItem.IsSelected = true;
+                visualItem.UpdateLayout();
+            }
         }
 
         private static TreeViewItem FindSelectedItem(ItemsControl container, object item)
@@ -89,6 +92,7 @@ namespace MaterialDesignThemes.Wpf
                 container.ApplyTemplate();
                 ItemsPresenter itemsPresenter =
                     (ItemsPresenter)container.Template.FindName("ItemsHost", container);
+
                 if (itemsPresenter != null)
                 {
                     itemsPresenter.ApplyTemplate();

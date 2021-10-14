@@ -1,4 +1,8 @@
 ﻿
+using AutoMapper;
+using MaterialDesignSidebarDemo.Data;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -24,9 +28,21 @@ namespace MaterialDesignSidebarDemo.ViewModels
         {
             Task.Run(async () =>
             {
-                await SimpleSidebarViewModel.LoadData();
-                await CompositeSidebarViewModel.LoadData();
+                await LoadData(SimpleSidebarViewModel);
+                await LoadData(CompositeSidebarViewModel);
             });
+        }
+
+        public async Task LoadData(ISidebarViewModel vm)
+        {
+            var items = await ReadData.Current.GetCompositeData();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Item, SidebarItemViewModel>();
+            });
+
+            IMapper iMapper = config.CreateMapper();
+            vm.Items = iMapper.Map<IEnumerable<Item>, ObservableCollection<SidebarItemViewModel>>(items);
         }
 
         public ICommand SelectFirstItemCommand { get; set; }

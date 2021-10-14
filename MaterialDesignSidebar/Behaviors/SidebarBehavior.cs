@@ -186,6 +186,11 @@ namespace MaterialDesignThemes.Wpf
             if (d is Sidebar sidebar)
             {
                 SidebarAssist.ExpandSidebar(sidebar, status.Value);
+
+                if (!status.Value)
+                {
+                    sidebar.SelectedItem = null;
+                }
             }
         }
     }
