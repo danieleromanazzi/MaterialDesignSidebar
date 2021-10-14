@@ -29,13 +29,7 @@ namespace MaterialDesignThemes.Wpf
                 return container as TreeViewItem;
             }
 
-            container.ApplyTemplate();
-
-            var itemsPresenter = VisualHelper.FindVisualChild<ItemsPresenter>(container);
-            itemsPresenter.ApplyTemplate();
-
-            Panel itemsHostPanel = (Panel)VisualTreeHelper.GetChild(itemsPresenter, 0);
-            UIElementCollection children = itemsHostPanel.Children;
+            var children = GetChildren(container);
             if (children.Count == 0)
             {
                 return null;
@@ -64,7 +58,16 @@ namespace MaterialDesignThemes.Wpf
             return result;
         }
 
+        private static UIElementCollection GetChildren(ItemsControl container)
+        {
+            container.ApplyTemplate();
 
+            var itemsPresenter = VisualHelper.FindVisualChild<ItemsPresenter>(container);
+            itemsPresenter.ApplyTemplate();
+
+            Panel itemsHostPanel = (Panel)VisualTreeHelper.GetChild(itemsPresenter, 0);
+            return itemsHostPanel.Children;
+        }
         public static TreeViewItem ContainerFromItemRecursive(this ItemContainerGenerator root, object item)
         {
             if (item == null || root == null)
