@@ -88,33 +88,39 @@ namespace MaterialDesignThemes.Wpf
             return null;
         }
 
+        private static ItemsPresenter GetItemsPresenter(ItemsControl container)
+        {
+            container.ApplyTemplate();
+            ItemsPresenter itemsPresenter =
+                (ItemsPresenter)container.Template.FindName("ItemsHost", container);
+
+            if (itemsPresenter != null)
+            {
+                itemsPresenter.ApplyTemplate();
+            }
+            else
+            {
+                itemsPresenter = VisualHelper.FindVisualChild<ItemsPresenter>(container);
+                if (itemsPresenter == null)
+                {
+                    container.UpdateLayout();
+
+                    itemsPresenter = VisualHelper.FindVisualChild<ItemsPresenter>(container);
+
+                    if (itemsPresenter == null)
+                    {
+                        return null;
+                    }
+                }
+            }
+            return itemsPresenter;
+        }
+
         public static void ExpandSidebar(ItemsControl container, bool expand)
         {
             if (container != null && container.Items.Count > 0)
             {
-                container.ApplyTemplate();
-                ItemsPresenter itemsPresenter =
-                    (ItemsPresenter)container.Template.FindName("ItemsHost", container);
-
-                if (itemsPresenter != null)
-                {
-                    itemsPresenter.ApplyTemplate();
-                }
-                else
-                {
-                    itemsPresenter = VisualHelper.FindVisualChild<ItemsPresenter>(container);
-                    if (itemsPresenter == null)
-                    {
-                        container.UpdateLayout();
-
-                        itemsPresenter = VisualHelper.FindVisualChild<ItemsPresenter>(container);
-
-                        if (itemsPresenter == null)
-                        {
-                            return;
-                        }
-                    }
-                }
+                var itemsPresenter = GetItemsPresenter(container);
 
                 Panel itemsHostPanel = (Panel)VisualTreeHelper.GetChild(itemsPresenter, 0);
                 UIElementCollection children = itemsHostPanel.Children;
