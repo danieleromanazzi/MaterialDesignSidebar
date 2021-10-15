@@ -1,6 +1,7 @@
 ﻿
 using AutoMapper;
 using MaterialDesignSidebarDemo.Data;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -28,14 +29,14 @@ namespace MaterialDesignSidebarDemo.ViewModels
         {
             Task.Run(async () =>
             {
-                await LoadData(SimpleSidebarViewModel);
-                await LoadData(CompositeSidebarViewModel);
+                await LoadData(SimpleSidebarViewModel, async () => await ReadData.Current.GetSimpleData());
+                await LoadData(CompositeSidebarViewModel, async () => await ReadData.Current.GetCompositeData());
             });
         }
 
-        public async Task LoadData(ISidebarViewModel vm)
+        public async Task LoadData(ISidebarViewModel vm, Func<Task<IEnumerable<Item>>> readData)
         {
-            var items = await ReadData.Current.GetCompositeData();
+            var items = await readData.Invoke();
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Item, SidebarItemViewModel>();
